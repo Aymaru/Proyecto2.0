@@ -1,0 +1,979 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vista;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+/**
+ *
+ * @author ayma-93
+ */
+public class MainFrame extends javax.swing.JFrame {
+
+    /**
+     * Creates new form MainFrame
+     */
+    public MainFrame() {
+        initComponents();
+        this.setLocation(40, 40); 
+        descargarMapa();
+        String dir = System.getProperty("user.dir")+"\\mapa.jpg";
+        ImagePanel panel = new ImagePanel(new ImageIcon(dir).getImage());
+        JInternalFrame frame = this.ff;
+        frame.getContentPane().add(panel);
+        frame.pack();
+        frame.setVisible(true);
+    }
+    
+    
+    private static void descargarMapa(){
+        //True si es puntarenas
+        boolean  keepZoom = true;
+        TipoVista vista = TipoVista.CANTON;
+        ArrayList<Marker> marcadores = new ArrayList<>();
+        marcadores.add(new Marker("10.023333333333333","-84.81083333333333","A"));
+        marcadores.add(new Marker("10.117222222222223","-84.82777777777777","B"));
+        marcadores.add(new Marker("9.170833333333333","-83.74583333333334","C"));
+        marcadores.add(new Marker("9.689444444444444","-85.10722222222222","D"));
+        marcadores.add(new Marker("8.627500000000001","-83.15611111111112","E"));
+        
+        ArrayList<String> colores = new ArrayList<>();
+        colores.add("black");
+        colores.add("brown");
+        colores.add("green");
+        colores.add("purple");
+        colores.add("yellow");
+        colores.add("blue");
+        colores.add("gray");
+        colores.add("orange");
+        colores.add("red");
+        colores.add("white");
+        
+        String center = "?center=";
+        String zoom = "&zoom=";
+        if (marcadores.size() > 0){
+            if (TipoVista.PROVINCIA == vista){
+                zoom+= "8";
+            }
+            else if (TipoVista.CANTON == vista){
+                if (keepZoom){
+                    zoom += "8";
+                }
+                else{
+                    zoom += "9";
+                }
+                
+            }
+            else if (TipoVista.DISTRITO == vista){
+                zoom += "12";
+            }
+            
+        }
+        else{
+            center += "9.72828,-84.2299717";
+            zoom+= "8";
+        }
+        String key = "&key=AIzaSyAUt8LSR_YdBgd-F5uLmk1F5iUqhnbwA7E";
+        String markers = "";
+        int color = 0;
+        double minLat = Integer.MAX_VALUE,maxLat = Integer.MIN_VALUE;
+        double minLog = Integer.MAX_VALUE,maxLog = Integer.MIN_VALUE;
+        for (int i=0;i<marcadores.size();i++){
+            color = i % colores.size();
+            markers += "&markers=color:"+colores.get(i)+"%7Clabel:"+marcadores.get(i).getLabel()+"%7C"+marcadores.get(i).getDir();
+            if (minLat>Double.valueOf(marcadores.get(i).getLat())){
+                minLat = Double.valueOf(marcadores.get(i).getLat());
+            }
+            if (minLog>Double.valueOf(marcadores.get(i).getLon())){
+                minLog = Double.valueOf(marcadores.get(i).getLon());
+            }
+            if (maxLat<Double.valueOf(marcadores.get(i).getLat())){
+                maxLat = Double.valueOf(marcadores.get(i).getLat());
+            }
+            if (maxLog<Double.valueOf(marcadores.get(i).getLon())){
+                maxLog = Double.valueOf(marcadores.get(i).getLon());
+            }
+        }
+        if (marcadores.size() > 0 && vista != TipoVista.PROVINCIA){
+            double centerLatitude = ( minLat + maxLat ) / 2;
+            double centerLongitude = ( minLog + maxLog ) / 2;
+            center += String.valueOf(centerLatitude)+","+String.valueOf(centerLongitude);
+        }
+        String m = "https://maps.googleapis.com/maps/api/staticmap"+center+zoom+"&size=1029x550&scale=4";
+        m  += markers + key;
+        try {
+        URL url = new URL(m);
+        HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
+        httpcon.addRequestProperty("User-Agent", ""); 
+        BufferedImage image = ImageIO.read(httpcon.getInputStream());
+        File outputfile = new File("mapa.jpg");
+        ImageIO.write(image, "jpg", outputfile);   
+       } 
+       catch (Exception e) {
+        e.printStackTrace();
+       }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
+        jPanel2 = new javax.swing.JPanel();
+        panelPrincipal = new javax.swing.JTabbedPane();
+        panelDashboard = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listProvincias = new javax.swing.JList<>();
+        cbAños = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listCantones = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listDistritos = new javax.swing.JList<>();
+        panelAdicional = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cbSexo_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
+        cbEdadQuinquenal_Dashboard2 = new javax.swing.JComboBox<>();
+        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<>();
+        btnProcesarDashboard = new javax.swing.JButton();
+        btnProcesarDashboard1 = new javax.swing.JButton();
+        btnProcesarDashboard2 = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        ff = new javax.swing.JInternalFrame();
+        panelIndicador = new javax.swing.JPanel();
+        panelGrafica_Indicador = new javax.swing.JPanel();
+        panelBotones_Indicador = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        rbSexo_Indicador = new javax.swing.JRadioButton();
+        btnGenerarGrafica = new javax.swing.JButton();
+        rbTipoAfectado_Identificador = new javax.swing.JRadioButton();
+        rbTipoLesion_Indicador = new javax.swing.JRadioButton();
+        rbEdadQuinquenal_Indicador = new javax.swing.JRadioButton();
+        btnGenerarGrafica1 = new javax.swing.JButton();
+        btnProcesarDashboard3 = new javax.swing.JButton();
+        cbAñosConsulta2 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        panelGrafico = new javax.swing.JPanel();
+        panelLibre = new javax.swing.JPanel();
+        btnProcesarDashboard4 = new javax.swing.JButton();
+        PanelPersonal = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMaximumSize(new java.awt.Dimension(1297, 708));
+        setMinimumSize(new java.awt.Dimension(1297, 708));
+        setUndecorated(true);
+        setResizable(false);
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
+        jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel2.setMaximumSize(new java.awt.Dimension(1297, 708));
+        jPanel2.setMinimumSize(new java.awt.Dimension(1297, 708));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1297, 708));
+
+        panelPrincipal.setBackground(new java.awt.Color(51, 51, 51));
+
+        panelDashboard.setBackground(new java.awt.Color(51, 51, 51));
+
+        jPanel4.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Canton(es)");
+
+        listProvincias.setBackground(new java.awt.Color(102, 102, 102));
+        listProvincias.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listProvincias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listProvinciasMouseClicked(evt);
+            }
+        });
+        listProvincias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listProvinciasValueChanged(evt);
+            }
+        });
+        jScrollPane2.setViewportView(listProvincias);
+
+        cbAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAños.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAñosActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Año(s)");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Distrito(s)");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Provincia(s)");
+
+        listCantones.setBackground(new java.awt.Color(102, 102, 102));
+        listCantones.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listCantones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listCantonesValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listCantones);
+
+        listDistritos.setBackground(new java.awt.Color(102, 102, 102));
+        listDistritos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(listDistritos);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbAños, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(45, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(cbAños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        panelAdicional.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Adicionales");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Sexo");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Tipo de Afectado");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Tipo de Lesión");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Edad Quinquenal");
+
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer" }));
+
+        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
+
+        cbEdadQuinquenal_Dashboard2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+
+        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
+
+        btnProcesarDashboard.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard.setText("GENERAR CONSULTA");
+
+        btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
+
+        btnProcesarDashboard2.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard2.setText("CERRAR SISTEMA");
+        btnProcesarDashboard2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboard2ActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Localización Geografica");
+
+        ff.setVisible(true);
+
+        javax.swing.GroupLayout ffLayout = new javax.swing.GroupLayout(ff.getContentPane());
+        ff.getContentPane().setLayout(ffLayout);
+        ffLayout.setHorizontalGroup(
+            ffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1278, Short.MAX_VALUE)
+        );
+        ffLayout.setVerticalGroup(
+            ffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1171, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelAdicionalLayout = new javax.swing.GroupLayout(panelAdicional);
+        panelAdicional.setLayout(panelAdicionalLayout);
+        panelAdicionalLayout.setHorizontalGroup(
+            panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdicionalLayout.createSequentialGroup()
+                        .addContainerGap(539, Short.MAX_VALUE)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSexo_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addGap(48, 48, 48)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(48, 48, 48)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(52, 52, 52)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(cbEdadQuinquenal_Dashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(89, 89, 89))
+                    .addGroup(panelAdicionalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel12))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnProcesarDashboard1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesarDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesarDashboard2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAdicionalLayout.setVerticalGroup(
+            panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdicionalLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelAdicionalLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbSexo_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelAdicionalLayout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cbEdadQuinquenal_Dashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelAdicionalLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnProcesarDashboard1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnProcesarDashboard)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnProcesarDashboard2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
+        panelDashboard.setLayout(panelDashboardLayout);
+        panelDashboardLayout.setHorizontalGroup(
+            panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDashboardLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelAdicional, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelDashboardLayout.setVerticalGroup(
+            panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDashboardLayout.createSequentialGroup()
+                .addGroup(panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDashboardLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelAdicional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.addTab("Dashboard", panelDashboard);
+
+        panelIndicador.setBackground(new java.awt.Color(51, 51, 51));
+
+        panelGrafica_Indicador.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout panelGrafica_IndicadorLayout = new javax.swing.GroupLayout(panelGrafica_Indicador);
+        panelGrafica_Indicador.setLayout(panelGrafica_IndicadorLayout);
+        panelGrafica_IndicadorLayout.setHorizontalGroup(
+            panelGrafica_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 956, Short.MAX_VALUE)
+        );
+        panelGrafica_IndicadorLayout.setVerticalGroup(
+            panelGrafica_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panelBotones_Indicador.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel10.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Seleccione el tipo de indicador :");
+
+        rbSexo_Indicador.setBackground(new java.awt.Color(51, 51, 51));
+        rbSexo_Indicador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbSexo_Indicador.setForeground(new java.awt.Color(255, 255, 255));
+        rbSexo_Indicador.setText("Sexo");
+        rbSexo_Indicador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbSexo_IndicadorActionPerformed(evt);
+            }
+        });
+
+        btnGenerarGrafica.setBackground(new java.awt.Color(0, 153, 204));
+        btnGenerarGrafica.setAutoscrolls(true);
+        btnGenerarGrafica.setLabel("LIMPIAR GRÁFICA");
+        btnGenerarGrafica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarGraficaActionPerformed(evt);
+            }
+        });
+
+        rbTipoAfectado_Identificador.setBackground(new java.awt.Color(51, 51, 51));
+        rbTipoAfectado_Identificador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbTipoAfectado_Identificador.setForeground(new java.awt.Color(255, 255, 255));
+        rbTipoAfectado_Identificador.setText("Tipo de Afectado");
+        rbTipoAfectado_Identificador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTipoAfectado_IdentificadorActionPerformed(evt);
+            }
+        });
+
+        rbTipoLesion_Indicador.setBackground(new java.awt.Color(51, 51, 51));
+        rbTipoLesion_Indicador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbTipoLesion_Indicador.setForeground(new java.awt.Color(255, 255, 255));
+        rbTipoLesion_Indicador.setText("Tipo de Lesión");
+        rbTipoLesion_Indicador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbTipoLesion_IndicadorActionPerformed(evt);
+            }
+        });
+
+        rbEdadQuinquenal_Indicador.setBackground(new java.awt.Color(51, 51, 51));
+        rbEdadQuinquenal_Indicador.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        rbEdadQuinquenal_Indicador.setForeground(new java.awt.Color(255, 255, 255));
+        rbEdadQuinquenal_Indicador.setText("Edad Quinquenal");
+        rbEdadQuinquenal_Indicador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbEdadQuinquenal_IndicadorActionPerformed(evt);
+            }
+        });
+
+        btnGenerarGrafica1.setBackground(new java.awt.Color(0, 153, 204));
+        btnGenerarGrafica1.setText("GENERAR GRÁFICA");
+        btnGenerarGrafica1.setActionCommand("");
+        btnGenerarGrafica1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarGrafica1ActionPerformed(evt);
+            }
+        });
+
+        btnProcesarDashboard3.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard3.setText("CERRAR SISTEMA");
+        btnProcesarDashboard3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboard3ActionPerformed(evt);
+            }
+        });
+
+        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAñosConsulta2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAñosConsulta2ActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Año(s)");
+
+        javax.swing.GroupLayout panelBotones_IndicadorLayout = new javax.swing.GroupLayout(panelBotones_Indicador);
+        panelBotones_Indicador.setLayout(panelBotones_IndicadorLayout);
+        panelBotones_IndicadorLayout.setHorizontalGroup(
+            panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbSexo_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbEdadQuinquenal_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbTipoLesion_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rbTipoAfectado_Identificador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbAñosConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnProcesarDashboard3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnGenerarGrafica, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGenerarGrafica1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBotones_IndicadorLayout.setVerticalGroup(
+            panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(rbSexo_Indicador)
+                .addGap(18, 18, 18)
+                .addComponent(rbTipoLesion_Indicador)
+                .addGap(14, 14, 14)
+                .addComponent(rbTipoAfectado_Identificador)
+                .addGap(18, 18, 18)
+                .addComponent(rbEdadQuinquenal_Indicador)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addComponent(cbAñosConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGenerarGrafica1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGenerarGrafica)
+                .addGap(18, 18, 18)
+                .addComponent(btnProcesarDashboard3)
+                .addGap(23, 23, 23))
+        );
+
+        panelGrafico.setBackground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout panelGraficoLayout = new javax.swing.GroupLayout(panelGrafico);
+        panelGrafico.setLayout(panelGraficoLayout);
+        panelGraficoLayout.setHorizontalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 970, Short.MAX_VALUE)
+        );
+        panelGraficoLayout.setVerticalGroup(
+            panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 604, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelIndicadorLayout = new javax.swing.GroupLayout(panelIndicador);
+        panelIndicador.setLayout(panelIndicadorLayout);
+        panelIndicadorLayout.setHorizontalGroup(
+            panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIndicadorLayout.createSequentialGroup()
+                .addGroup(panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelIndicadorLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(panelGrafica_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelIndicadorLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelIndicadorLayout.setVerticalGroup(
+            panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIndicadorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelIndicadorLayout.createSequentialGroup()
+                        .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelGrafica_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        panelPrincipal.addTab("Indicador de Comportamiento", panelIndicador);
+
+        panelLibre.setBackground(new java.awt.Color(51, 51, 51));
+
+        btnProcesarDashboard4.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard4.setText("CERRAR SISTEMA");
+        btnProcesarDashboard4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboard4ActionPerformed(evt);
+            }
+        });
+
+        PanelPersonal.setBackground(new java.awt.Color(102, 102, 102));
+
+        javax.swing.GroupLayout PanelPersonalLayout = new javax.swing.GroupLayout(PanelPersonal);
+        PanelPersonal.setLayout(PanelPersonalLayout);
+        PanelPersonalLayout.setHorizontalGroup(
+            PanelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 964, Short.MAX_VALUE)
+        );
+        PanelPersonalLayout.setVerticalGroup(
+            PanelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelLibreLayout = new javax.swing.GroupLayout(panelLibre);
+        panelLibre.setLayout(panelLibreLayout);
+        panelLibreLayout.setHorizontalGroup(
+            panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLibreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(456, Short.MAX_VALUE))
+        );
+        panelLibreLayout.setVerticalGroup(
+            panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLibreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnProcesarDashboard4)
+                    .addComponent(PanelPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelPrincipal.addTab("Libre", panelLibre);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Historial de Accidentes en Costa Rica");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPrincipal)
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1534, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1772, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1405, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void listCantonesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listCantonesValueChanged
+        if (this.listCantones.getSelectedIndices().length > 1){
+            this.listDistritos.setEnabled(false);
+        }
+        else{
+            this.listDistritos.setEnabled(true);
+            this.listDistritos.clearSelection();
+        }
+    }//GEN-LAST:event_listCantonesValueChanged
+
+    private void cbAñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAñosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAñosActionPerformed
+
+    private void listProvinciasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listProvinciasValueChanged
+        if (this.listProvincias.getSelectedIndices().length > 1){
+            this.listCantones.setEnabled(false);
+            this.listDistritos.setEnabled(false);
+        }
+        else{
+            this.listCantones.setEnabled(true);
+            this.listCantones.clearSelection();
+        }
+    }//GEN-LAST:event_listProvinciasValueChanged
+
+    private void listProvinciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProvinciasMouseClicked
+
+    }//GEN-LAST:event_listProvinciasMouseClicked
+
+    private void btnGenerarGraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGraficaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGenerarGraficaActionPerformed
+
+    private void rbSexo_IndicadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSexo_IndicadorActionPerformed
+        this.rbEdadQuinquenal_Indicador.setSelected(false);
+        this.rbTipoAfectado_Identificador.setSelected(false);
+        this.rbTipoLesion_Indicador.setSelected(false);
+    }//GEN-LAST:event_rbSexo_IndicadorActionPerformed
+
+    private void rbEdadQuinquenal_IndicadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbEdadQuinquenal_IndicadorActionPerformed
+        this.rbSexo_Indicador.setSelected(false);
+        this.rbTipoAfectado_Identificador.setSelected(false);
+        this.rbTipoLesion_Indicador.setSelected(false);
+    }//GEN-LAST:event_rbEdadQuinquenal_IndicadorActionPerformed
+
+    private void rbTipoLesion_IndicadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTipoLesion_IndicadorActionPerformed
+        this.rbSexo_Indicador.setSelected(false);
+        this.rbTipoAfectado_Identificador.setSelected(false);
+        this.rbEdadQuinquenal_Indicador.setSelected(false);
+    }//GEN-LAST:event_rbTipoLesion_IndicadorActionPerformed
+
+    private void rbTipoAfectado_IdentificadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTipoAfectado_IdentificadorActionPerformed
+        this.rbSexo_Indicador.setSelected(false);
+        this.rbTipoLesion_Indicador.setSelected(false);
+        this.rbEdadQuinquenal_Indicador.setSelected(false);
+    }//GEN-LAST:event_rbTipoAfectado_IdentificadorActionPerformed
+
+    private void btnProcesarDashboard3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboard3ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnProcesarDashboard3ActionPerformed
+
+    private void btnProcesarDashboard4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboard4ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnProcesarDashboard4ActionPerformed
+
+    private void btnProcesarDashboard2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboard2ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnProcesarDashboard2ActionPerformed
+
+    private void btnGenerarGrafica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGrafica1ActionPerformed
+        String indicador = "";
+        if (rbSexo_Indicador.isSelected())indicador = "Sexo";
+        if (rbEdadQuinquenal_Indicador.isSelected())indicador = "Edad Quiquenal";
+        if (rbTipoAfectado_Identificador.isSelected())indicador = "Tipo de Afectado";
+        if (rbTipoLesion_Indicador.isSelected())indicador = "Tipo de Lesión";
+        
+        XYSeries series = new XYSeries("");
+        XYSeries series2 = new XYSeries("");
+        double poblacion = 0.7;
+        double tasa_crecimiento = 3.9;
+
+        for (int i = 0; i < 30; i++) {
+            series.add(i, poblacion * 100);
+            // Variante de la ecuacion de Verhulst
+            poblacion = poblacion * tasa_crecimiento * (1 - poblacion);
+        }
+        
+        poblacion = 0.6;
+        tasa_crecimiento = 4;
+        
+        for (int i = 0; i < 30; i++) {
+            series2.add(i, poblacion * 100);
+            // Variante de la ecuacion de Verhulst
+            poblacion = poblacion * tasa_crecimiento * (1 - poblacion);
+        }
+
+        XYSeriesCollection dataset = new XYSeriesCollection();
+        dataset.addSeries(series);
+        dataset.addSeries(series2);
+
+        JFreeChart chart = ChartFactory.createXYLineChart(
+                indicador,
+                "Tiempo",
+                "Población",
+                dataset,
+                PlotOrientation.VERTICAL,
+                false,
+                false,
+                false
+        );
+
+        // Mostramos la grafica dentro del jPanel1
+        ChartPanel panel = new ChartPanel(chart);        
+        panelGrafico.setLayout(new java.awt.BorderLayout());
+        panelGrafico.add(panel);   
+        panelGrafico.validate();        
+    }//GEN-LAST:event_btnGenerarGrafica1ActionPerformed
+
+    private void cbAñosConsulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAñosConsulta2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAñosConsulta2ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelPersonal;
+    private javax.swing.JButton btnGenerarGrafica;
+    private javax.swing.JButton btnGenerarGrafica1;
+    private javax.swing.JButton btnProcesarDashboard;
+    private javax.swing.JButton btnProcesarDashboard1;
+    private javax.swing.JButton btnProcesarDashboard2;
+    private javax.swing.JButton btnProcesarDashboard3;
+    private javax.swing.JButton btnProcesarDashboard4;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
+    private javax.swing.JComboBox<String> cbAños;
+    private javax.swing.JComboBox<String> cbAñosConsulta2;
+    private javax.swing.JComboBox<String> cbEdadQuinquenal_Dashboard2;
+    private javax.swing.JComboBox<String> cbSexo_Dashboard;
+    private javax.swing.JComboBox<String> cbTipoAfectado_Dashboard;
+    private javax.swing.JComboBox<String> cbTipoLesion_Dashboard;
+    private javax.swing.JInternalFrame ff;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JList<String> listCantones;
+    private javax.swing.JList<String> listDistritos;
+    private javax.swing.JList<String> listProvincias;
+    private javax.swing.JPanel panelAdicional;
+    private javax.swing.JPanel panelBotones_Indicador;
+    private javax.swing.JPanel panelDashboard;
+    private javax.swing.JPanel panelGrafica_Indicador;
+    private javax.swing.JPanel panelGrafico;
+    private javax.swing.JPanel panelIndicador;
+    private javax.swing.JPanel panelLibre;
+    private javax.swing.JTabbedPane panelPrincipal;
+    private javax.swing.JRadioButton rbEdadQuinquenal_Indicador;
+    private javax.swing.JRadioButton rbSexo_Indicador;
+    private javax.swing.JRadioButton rbTipoAfectado_Identificador;
+    private javax.swing.JRadioButton rbTipoLesion_Indicador;
+    // End of variables declaration//GEN-END:variables
+}
