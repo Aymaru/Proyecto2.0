@@ -127,7 +127,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
         String m = "https://maps.googleapis.com/maps/api/staticmap"+center+zoom+"&size=1029x550&scale=4";
         m  += markers + key;
-        System.out.println(zoom);
         try {
         URL url = new URL(m);
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
