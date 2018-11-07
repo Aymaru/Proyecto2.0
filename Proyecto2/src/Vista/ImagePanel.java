@@ -31,11 +31,10 @@ class ImagePanel extends JPanel {
     setMaximumSize(size);
     setSize(size);
     setLayout(null);
-      System.out.println(size.getHeight());
   }
  
   public void paintComponent(Graphics g) {
-    g.drawImage(img, 0, 0, null);
+    g.drawImage(img, 0, 0,1237,714, null);
   }
   
 }
