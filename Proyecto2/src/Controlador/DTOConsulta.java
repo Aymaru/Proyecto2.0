@@ -22,9 +22,13 @@ public class DTOConsulta {
     String año_ini;
     String año_fin;
     String identificador;
-    ArrayList<String> provincias;
-    ArrayList<String> cantones;
-    ArrayList<String> distritos;
+    String provincia;
+    String canton;
+    String distrito;
+    String tipo_lesion;
+    String rol_afectado;
+    String sexo;
+    String edad_quinquenal;
     ArrayList<String> sexos;
     ArrayList<String> rolAfectados;
     ArrayList<String> tipoLesiones;
@@ -60,31 +64,7 @@ public class DTOConsulta {
         this.año_fin = año_fin;
     }
 
-       public ArrayList<String> getProvincias() {
-        return provincias;
-    }
-
-    public void setProvincias(ArrayList<String> provincias) {
-        this.provincias = provincias;
-    }
-
-    public ArrayList<String> getCantones() {
-        return cantones;
-    }
-
-    public void setCantones(ArrayList<String> cantones) {
-        this.cantones = cantones;
-    }
-
-    public ArrayList<String> getDistritos() {
-        return distritos;
-    }
-
-    public void setDistritos(ArrayList<String> distritos) {
-        this.distritos = distritos;
-    }
-
-    public ArrayList<String> getSexos() {
+      public ArrayList<String> getSexos() {
         return sexos;
     }
 
@@ -138,6 +118,62 @@ public class DTOConsulta {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getCanton() {
+        return canton;
+    }
+
+    public void setCanton(String canton) {
+        this.canton = canton;
+    }
+
+    public String getDistrito() {
+        return distrito;
+    }
+
+    public void setDistrito(String distrito) {
+        this.distrito = distrito;
+    }
+
+    public String getTipo_lesion() {
+        return tipo_lesion;
+    }
+
+    public void setTipo_lesion(String tipo_lesion) {
+        this.tipo_lesion = tipo_lesion;
+    }
+
+    public String getRol_afectado() {
+        return rol_afectado;
+    }
+
+    public void setRol_afectado(String rol_afectado) {
+        this.rol_afectado = rol_afectado;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getEdad_quinquenal() {
+        return edad_quinquenal;
+    }
+
+    public void setEdad_quinquenal(String edad_quinquenal) {
+        this.edad_quinquenal = edad_quinquenal;
     }
     
   

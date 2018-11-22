@@ -137,8 +137,32 @@ public class DAODB {
             cs = conn.prepareCall(query);
             cs.setString("tipoIdentificador", dto.getTipoIdentificador().toString());
             cs.setString("anno_ini", dto.getAño_ini());
-            cs.setString("anno_fin", dto.getAño_ini());
+            cs.setString("anno_fin", dto.getAño_fin());
             cs.setString("identificador", dto.getIdentificador());
+            rs = cs.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dto.setRs(rs);
+        return dto;
+    }
+    
+    public DTOConsulta consultaDashboard(DTOConsulta dto){
+        
+        String query = "{call consultaDashboard(?,?,?,?,?,?,?,?,?)}";
+        try {            
+            CallableStatement cs = null;
+            
+            cs = conn.prepareCall(query);
+            cs.setString("anno_ini", dto.getAño_ini());
+            cs.setString("anno_fin", dto.getAño_fin());
+            cs.setString("provincia", dto.getProvincia());
+            cs.setString("canton", dto.getCanton());
+            cs.setString("distrito", dto.getDistrito());
+            cs.setString("sexo", dto.getSexo());
+            cs.setString("tipo_lesion", dto.getTipo_lesion());
+            cs.setString("rol_afectado", dto.getRol_afectado());
+            cs.setString("edad_quinquenal", dto.getEdad_quinquenal());
             rs = cs.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
