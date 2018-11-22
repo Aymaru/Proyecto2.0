@@ -4,9 +4,12 @@
  * and open the template in the editor.
  */
 package Vista;
+
+import Controlador.Controlador;
 import MapaDecorator.TipoVista;
 import MapaDecorator.Marker;
 import Controlador.DAODB;
+import Controlador.DTOInterfaz;
 import MapaDecorator.DataMapa;
 import MapaDecorator.DecoratorCenter;
 import MapaDecorator.Mapa;
@@ -43,12 +46,19 @@ public class MainFrame extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      */
     
+    Controlador controller;
+    DTOInterfaz dtoInterfaz_Entrada;
+    DTOInterfaz dtoInterfaz_Salida;
     
-    DAODB dao;
-    ResultSet rs = null;
-    DefaultListModel modProvincia = new DefaultListModel();
-    DefaultListModel modCanton = new DefaultListModel();
-    DefaultListModel modDistrito = new DefaultListModel();
+    //Definir modelo de datos para las listas de la interfaz
+    
+    DefaultListModel modProvincia;
+    DefaultListModel modCanton;
+    DefaultListModel modDistrito;
+    DefaultListModel modTipoLesion;
+    DefaultListModel modRolAfectado;
+    DefaultListModel modEdadQuinquenal;
+    
     
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
@@ -61,12 +71,25 @@ public class MainFrame extends javax.swing.JFrame {
         frame.pack();
         frame.setVisible(true);
         
-        this.dao = new DAODB();
+        this.controller = new Controlador();
+        this.dtoInterfaz_Entrada = new DTOInterfaz();
+        this.dtoInterfaz_Salida = new DTOInterfaz();
         
-        DefaultListModel modTipoLesion = new DefaultListModel();
-        DefaultListModel modRolAfectado = new DefaultListModel();
-        DefaultListModel modEdadQuinquenal = new DefaultListModel();
+        inicializarDatos();
         
+        
+    }
+    
+    public void inicializarDatos() throws SQLException{
+        ResultSet rs = null;
+        
+        this.modProvincia = new DefaultListModel();
+        this.modCanton = new DefaultListModel();
+        this.modDistrito = new DefaultListModel();
+        this.modTipoLesion = new DefaultListModel();
+        this.modRolAfectado = new DefaultListModel();
+        this.modEdadQuinquenal = new DefaultListModel();
+    
         this.listProvincias.setModel(modProvincia);
         this.listCantones.setModel(modCanton);
         this.listDistritos.setModel(modDistrito);
@@ -81,36 +104,42 @@ public class MainFrame extends javax.swing.JFrame {
         modRolAfectado.clear();
         modEdadQuinquenal.clear();
         
+        this.cbTipoAfectado_Dashboard.removeAllItems();
+        this.cbTipoLesion_Dashboard.removeAllItems();
+        this.cbEdadQuinquenal_Dashboard.removeAllItems();
         
-        rs = dao.getProvincias();
+        this.cbTipoAfectado_Dashboard.addItem("-");
+        this.cbTipoLesion_Dashboard.addItem("-");
+        this.cbEdadQuinquenal_Dashboard.addItem("-");
+        
+        
+        dtoInterfaz_Entrada = controller.getListaProvincias(dtoInterfaz_Salida);        
+        rs = dtoInterfaz_Entrada.getRs();
         while(rs.next()){
             modProvincia.addElement(rs.getString("Provincia").trim());
         }
         
-        rs = dao.getTiposLesion();
+        dtoInterfaz_Entrada = controller.getListaTipoLesion(dtoInterfaz_Salida);
+        rs = dtoInterfaz_Entrada.getRs();
         while(rs.next()){
+            this.cbTipoLesion_Dashboard.addItem(rs.getString("TipoLesion").trim());
             modTipoLesion.addElement(rs.getString("TipoLesion").trim());
         }
         
-        rs = dao.getRolesAfectado();
+        dtoInterfaz_Entrada = controller.getListaRolAfectado(dtoInterfaz_Salida);
+        rs = dtoInterfaz_Entrada.getRs();
         while(rs.next()){
+            this.cbTipoAfectado_Dashboard.addItem(rs.getString("RolAfectado").trim());
             modRolAfectado.addElement(rs.getString("RolAfectado").trim());
         }
         
-        rs = dao.getEdadesQuinquenal();
+        dtoInterfaz_Entrada = controller.getListaEdadQuinquenal(dtoInterfaz_Salida);
+        rs = dtoInterfaz_Entrada.getRs();
         while(rs.next()){
+            this.cbEdadQuinquenal_Dashboard.addItem(rs.getString("EdadQuinquenal").trim());
             modEdadQuinquenal.addElement(rs.getString("EdadQuinquenal").trim());
         }
-        
-        
-        
-        
-        
-        
-        
-        
     }
-    
     
     private static void descargarMapa(){
         //True si es puntarenas
@@ -184,7 +213,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        cbEdadQuinquenal_Dashboard2 = new javax.swing.JComboBox<>();
+        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<>();
         btnProcesarDashboard1 = new javax.swing.JButton();
         btnProcesarDashboard = new javax.swing.JButton();
         btnProcesarDashboard2 = new javax.swing.JButton();
@@ -313,7 +342,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(listDistritos);
 
-        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer" }));
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -339,7 +368,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Edad Quinquenal");
 
-        cbEdadQuinquenal_Dashboard2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
 
         btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
@@ -376,7 +405,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(cbEdadQuinquenal_Dashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
@@ -433,7 +462,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(55, 55, 55)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbEdadQuinquenal_Dashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -474,7 +503,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ff))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
@@ -807,7 +836,10 @@ public class MainFrame extends javax.swing.JFrame {
             this.modDistrito.clear();
         }
         else{
-            rs = dao.getDistritos(this.listProvincias.getSelectedValue(),this.listCantones.getSelectedValue());
+            dtoInterfaz_Salida.setProvincia(this.listProvincias.getSelectedValue());
+            dtoInterfaz_Salida.setCanton(this.listCantones.getSelectedValue());
+            dtoInterfaz_Entrada = controller.getListaDistritos(dtoInterfaz_Salida);
+            ResultSet rs = dtoInterfaz_Entrada.getRs();
             this.modDistrito.clear();
             try {
                 while(rs.next()){
@@ -831,8 +863,9 @@ public class MainFrame extends javax.swing.JFrame {
             this.modCanton.clear();
         }
         else{
-            System.out.println("xxx");
-            rs = dao.getCantones(this.listProvincias.getSelectedValue());
+            dtoInterfaz_Salida.setProvincia(this.listProvincias.getSelectedValue());
+            dtoInterfaz_Entrada = controller.getListaCantones(dtoInterfaz_Salida);
+            ResultSet rs = dtoInterfaz_Entrada.getRs();
             this.modCanton.clear();
             try {
                 while(rs.next()){
@@ -998,7 +1031,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> cbAños;
     private javax.swing.JComboBox<String> cbAñosConsulta2;
-    private javax.swing.JComboBox<String> cbEdadQuinquenal_Dashboard2;
+    private javax.swing.JComboBox<String> cbEdadQuinquenal_Dashboard;
     private javax.swing.JComboBox<String> cbSexo_Dashboard;
     private javax.swing.JComboBox<String> cbTipoAfectado_Dashboard;
     private javax.swing.JComboBox<String> cbTipoLesion_Dashboard;

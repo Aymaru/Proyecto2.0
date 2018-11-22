@@ -34,7 +34,7 @@ public class DAODB {
     }
  
 
-    public ResultSet getProvincias(){
+    public DTOInterfaz getProvincias(DTOInterfaz dto){
         String query = "call getProvincias()";
         try {
             PreparedStatement ps = null;
@@ -45,43 +45,46 @@ public class DAODB {
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
     }
     
-    public ResultSet getCantones(String provincia){
+    public DTOInterfaz getCantones(DTOInterfaz dto){
         String query = "{call getCantones(?)}";
         
         try {
             CallableStatement cs = null;
             
             cs = conn.prepareCall(query);
-            cs.setString("provincia", provincia);
+            cs.setString("provincia", dto.getProvincia());
             rs = cs.executeQuery();
                        
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
     }
     
-    public ResultSet getDistritos(String provincia, String canton){
+    public DTOInterfaz getDistritos(DTOInterfaz dto){
         String query = "{call getDistritos(?,?)}";
         
         try {
             CallableStatement cs = null;
             
             cs = conn.prepareCall(query);
-            cs.setString("provincia", provincia);
-            cs.setString("canton", canton);
+            cs.setString("provincia", dto.getProvincia());
+            cs.setString("canton", dto.getCanton());
             rs = cs.executeQuery();
                        
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
     }
     
-    public ResultSet getTiposLesion(){
+    public DTOInterfaz getTiposLesion(DTOInterfaz dto){
         String query = "call getTiposLesion()";
         try {
             PreparedStatement ps = null;
@@ -92,10 +95,11 @@ public class DAODB {
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
     }
     
-    public ResultSet getRolesAfectado(){
+    public DTOInterfaz getRolesAfectado(DTOInterfaz dto){
         String query = "call getRolesAfectado()";
         try {
             PreparedStatement ps = null;
@@ -106,10 +110,11 @@ public class DAODB {
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
     }
     
-    public ResultSet getEdadesQuinquenal(){
+    public DTOInterfaz getEdadesQuinquenal(DTOInterfaz dto){
         String query = "call getEdadesQuinquenales()";
         try {
             PreparedStatement ps = null;
@@ -120,7 +125,26 @@ public class DAODB {
         } catch (SQLException ex) {
             Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rs;
+        dto.setRs(rs);
+        return dto;
+    }
+    
+    public DTOConsulta consultaGrafica(DTOConsulta dto){
+        String query = "{call consultaGrafica(?,?,?,?)}";
+        try {            
+            CallableStatement cs = null;
+            
+            cs = conn.prepareCall(query);
+            cs.setString("tipoIdentificador", dto.getTipoIdentificador().toString());
+            cs.setString("anno_ini", dto.getAño_ini());
+            cs.setString("anno_fin", dto.getAño_ini());
+            cs.setString("identificador", dto.getIdentificador());
+            rs = cs.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dto.setRs(rs);
+        return dto;
     }
     
     public void close() {
