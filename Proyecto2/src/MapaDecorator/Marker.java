@@ -67,6 +67,10 @@ public class Marker {
         return lat + "," + lon;
     }
 
+    public static void setCount(int count) {
+        Marker.count = count;
+    }
+
     
     
     

@@ -19,8 +19,7 @@ class ImagePanel extends JPanel {
  
   private Image img;
  
-  public ImagePanel(String img) {
-    this(new ImageIcon(img).getImage());
+  public ImagePanel() {
   }
  
   public ImagePanel(Image img) {
@@ -31,6 +30,11 @@ class ImagePanel extends JPanel {
     setMaximumSize(size);
     setSize(size);
     setLayout(null);
+  }
+  
+  public void setImage(Image img){
+      this.img = img;
+      repaint();
   }
  
   public void paintComponent(Graphics g) {

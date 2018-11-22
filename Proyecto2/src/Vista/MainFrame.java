@@ -59,22 +59,15 @@ public class MainFrame extends javax.swing.JFrame {
     DefaultListModel modRolAfectado;
     DefaultListModel modEdadQuinquenal;
     
-    //Variable del mapa de la primera consulta
-    DataMapa MapaConsulta1 = new Mapa(null,false,null);
     
-    
+    ImagePanel MapaDashboard = new ImagePanel();
     
     
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
         this.setLocation(40, 40); 
         descargarMapa(TipoVista.PROVINCIA,false,new ArrayList<>());
-        String dir = System.getProperty("user.dir")+"\\mapa.jpg";
-        ImagePanel panel = new ImagePanel(new ImageIcon(dir).getImage());
-        JInternalFrame frame = this.ff;
-        frame.getContentPane().add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        
         
         this.controller = new Controlador();
         this.dtoInterfaz_Entrada = new DTOInterfaz();
@@ -151,16 +144,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void descargarMapa(TipoVista vista,boolean keepZoom,ArrayList<Marker> marcadores){
         
-//        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
-//        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
-//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
-//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
-       
-        
-        MapaConsulta1.setMarcadores(marcadores);
-        MapaConsulta1.setKeepZoom(keepZoom);
-        MapaConsulta1.setVista(vista);
+        DataMapa MapaConsulta1 = new Mapa(vista,keepZoom,marcadores);
         MapaConsulta1 = new DecoratorMarkers(MapaConsulta1);
         MapaConsulta1 = new DecoratorCenter(MapaConsulta1);
         MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
@@ -180,6 +164,13 @@ public class MainFrame extends javax.swing.JFrame {
        catch (Exception e) {
         e.printStackTrace();
        }
+       
+        
+       //Carga el mapa
+       String dir = System.getProperty("user.dir")+"\\mapa.jpg";
+       MapaDashboard = new ImagePanel(new ImageIcon(dir).getImage());
+       this.ff.add(MapaDashboard);
+       this.ff.pack();
     }
 
     /**
@@ -204,24 +195,24 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listProvincias = new javax.swing.JList<>();
-        cbAños = new javax.swing.JComboBox<>();
+        listProvincias = new javax.swing.JList<String>();
+        cbAños = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCantones = new javax.swing.JList<>();
+        listCantones = new javax.swing.JList<String>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listDistritos = new javax.swing.JList<>();
-        cbSexo_Dashboard = new javax.swing.JComboBox<>();
+        listDistritos = new javax.swing.JList<String>();
+        cbSexo_Dashboard = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoLesion_Dashboard = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<>();
+        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<String>();
         btnProcesarDashboard1 = new javax.swing.JButton();
         btnProcesarDashboard = new javax.swing.JButton();
         btnProcesarDashboard2 = new javax.swing.JButton();
@@ -232,20 +223,20 @@ public class MainFrame extends javax.swing.JFrame {
         rbTipoAfectado_Identificador = new javax.swing.JRadioButton();
         rbTipoLesion_Indicador = new javax.swing.JRadioButton();
         rbEdadQuinquenal_Indicador = new javax.swing.JRadioButton();
-        cbAñosConsulta2 = new javax.swing.JComboBox<>();
+        cbAñosConsulta2 = new javax.swing.JComboBox<String>();
         jLabel13 = new javax.swing.JLabel();
         btnGenerarGrafica = new javax.swing.JButton();
         btnProcesarDashboard3 = new javax.swing.JButton();
         btnGenerarGrafica1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listRolAfectado_Grafica = new javax.swing.JList<>();
+        listRolAfectado_Grafica = new javax.swing.JList<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listSexo_Grafica = new javax.swing.JList<>();
+        listSexo_Grafica = new javax.swing.JList<String>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        listTipoLesion_Grafica = new javax.swing.JList<>();
+        listTipoLesion_Grafica = new javax.swing.JList<String>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        listEdadQuinquenal_Grafica = new javax.swing.JList<>();
+        listEdadQuinquenal_Grafica = new javax.swing.JList<String>();
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
@@ -293,10 +284,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Canton(es)");
 
         listProvincias.setBackground(new java.awt.Color(102, 102, 102));
-        listProvincias.setModel(new javax.swing.AbstractListModel<String>() {
+        listProvincias.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listProvincias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -310,7 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listProvincias);
 
-        cbAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAños.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosActionPerformed(evt);
@@ -330,10 +321,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Provincia(s)");
 
         listCantones.setBackground(new java.awt.Color(102, 102, 102));
-        listCantones.setModel(new javax.swing.AbstractListModel<String>() {
+        listCantones.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listCantones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -343,14 +334,14 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listCantones);
 
         listDistritos.setBackground(new java.awt.Color(102, 102, 102));
-        listDistritos.setModel(new javax.swing.AbstractListModel<String>() {
+        listDistritos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(listDistritos);
 
-        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -364,25 +355,30 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tipo de Afectado");
 
-        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
+        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tipo de Lesión");
 
-        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
+        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Edad Quinquenal");
 
-        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
 
         btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
 
         btnProcesarDashboard.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard.setText("GENERAR CONSULTA");
+        btnProcesarDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboardActionPerformed(evt);
+            }
+        });
 
         btnProcesarDashboard2.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard2.setText("CERRAR SISTEMA");
@@ -577,7 +573,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAñosConsulta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosConsulta2ActionPerformed(evt);
@@ -617,31 +613,31 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Seleccione el rango de fechas:");
 
-        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane4.setViewportView(listRolAfectado_Grafica);
 
-        listSexo_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listSexo_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Hombre", "Mujer", "Desconocido" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane5.setViewportView(listSexo_Grafica);
 
-        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane6.setViewportView(listTipoLesion_Grafica);
 
-        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane7.setViewportView(listEdadQuinquenal_Grafica);
 
@@ -805,7 +801,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPrincipal)
+                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1319, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -977,6 +973,37 @@ public class MainFrame extends javax.swing.JFrame {
     private void cbAñosConsulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAñosConsulta2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbAñosConsulta2ActionPerformed
+
+    private void btnProcesarDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboardActionPerformed
+        TipoVista vista = TipoVista.PROVINCIA;
+        boolean keepZoom = false;
+        ArrayList<Marker> marcadores = new ArrayList<>();
+        Marker.setCount(0);
+        
+        if (this.listCantones.getSelectedIndices().length > 0){
+            vista = TipoVista.CANTON;
+        }
+        if (this.listDistritos.getSelectedIndices().length > 0){
+            vista = TipoVista.DISTRITO;
+        }
+        
+        if (vista == TipoVista.CANTON && this.listProvincias.getSelectedValue().equals("Puntarenas")){
+            keepZoom = true;
+        }
+        
+        
+        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
+        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
+        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
+        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
+        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
+        
+        
+        
+        
+        descargarMapa(vista,keepZoom,marcadores);
+        
+    }//GEN-LAST:event_btnProcesarDashboardActionPerformed
 
     /**
      * @param args the command line arguments

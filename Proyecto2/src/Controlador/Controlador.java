@@ -19,6 +19,19 @@ public class Controlador {
         this.dtoConsulta = new DTOConsulta();
     }
     
+    //Consultas
+    
+    public DTOConsulta consultaDashboard(DTOConsulta dto){
+        this.dtoConsulta = dao.consultaDashboard(dto);
+        return this.dtoConsulta;
+    }
+    
+    public DTOConsulta consultaGrafica(DTOConsulta dto){
+        this.dtoConsulta = dao.consultaGrafica(dto);
+        return this.dtoConsulta;
+    }
+    
+    
     //Funciones para cargar datos a la interfaz
     
     public DTOInterfaz getListaProvincias(DTOInterfaz dto){       

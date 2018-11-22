@@ -643,6 +643,9 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="GENERAR CONSULTA"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesarDashboardActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnProcesarDashboard2">
                           <Properties>
