@@ -59,16 +59,14 @@ public class MainFrame extends javax.swing.JFrame {
     DefaultListModel modRolAfectado;
     DefaultListModel modEdadQuinquenal;
     
-    //Variable del mapa de la primera consulta
-    DataMapa MapaConsulta1 = new Mapa(TipoVista.PROVINCIA,false,new ArrayList<>());
-    ImagePanel MapaDashboard;
     
+    ImagePanel MapaDashboard = new ImagePanel();
     
     
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
         this.setLocation(40, 40); 
-        descargarMapa();
+        descargarMapa(TipoVista.PROVINCIA,false,new ArrayList<>());
         
         
         this.controller = new Controlador();
@@ -144,10 +142,9 @@ public class MainFrame extends javax.swing.JFrame {
         
     }
     
-    private void descargarMapa(){
+    private void descargarMapa(TipoVista vista,boolean keepZoom,ArrayList<Marker> marcadores){
         
-
-        
+        DataMapa MapaConsulta1 = new Mapa(vista,keepZoom,marcadores);
         MapaConsulta1 = new DecoratorMarkers(MapaConsulta1);
         MapaConsulta1 = new DecoratorCenter(MapaConsulta1);
         MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
@@ -172,11 +169,8 @@ public class MainFrame extends javax.swing.JFrame {
        //Carga el mapa
        String dir = System.getProperty("user.dir")+"\\mapa.jpg";
        MapaDashboard = new ImagePanel(new ImageIcon(dir).getImage());
-       JInternalFrame frame = this.ff;
-       
-       frame.getContentPane().add(MapaDashboard);
-       frame.pack();
-       frame.setVisible(true);
+       this.ff.add(MapaDashboard);
+       this.ff.pack();
     }
 
     /**
@@ -982,36 +976,32 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnProcesarDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboardActionPerformed
         TipoVista vista = TipoVista.PROVINCIA;
-        Boolean keepZoom = false;
+        boolean keepZoom = false;
         ArrayList<Marker> marcadores = new ArrayList<>();
+        Marker.setCount(0);
         
-      
-        if (!listProvincias.isSelectionEmpty()){
-            vista = TipoVista.PROVINCIA;
-        }
-        if (!listCantones.isSelectionEmpty()){
+        if (this.listCantones.getSelectedIndices().length > 0){
             vista = TipoVista.CANTON;
         }
-        if (!listDistritos.isSelectionEmpty()){
+        if (this.listDistritos.getSelectedIndices().length > 0){
             vista = TipoVista.DISTRITO;
         }
-        if (vista == TipoVista.CANTON && listProvincias.getSelectedValue().equals("Puntarenas")){
-            keepZoom  = true;
-        }
-        else {
-            keepZoom = false;
+        
+        if (vista == TipoVista.CANTON && this.listProvincias.getSelectedValue().equals("Puntarenas")){
+            keepZoom = true;
         }
         
-        //Agregar marcadores
         
         marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
         marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
+        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
         marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
-        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));  
+        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
         
-        MapaConsulta1 = new Mapa(vista,keepZoom,marcadores);
-        descargarMapa();
+        
+        
+        
+        descargarMapa(vista,keepZoom,marcadores);
         
     }//GEN-LAST:event_btnProcesarDashboardActionPerformed
 
