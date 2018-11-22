@@ -16,8 +16,10 @@ import MapaDecorator.DecoratorCenter;
 import MapaDecorator.Mapa;
 import MapaDecorator.DecoratorMarkers;
 import MapaDecorator.DecoratorZoom;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.ResultSet;
@@ -27,6 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import org.jfree.chart.ChartFactory;
@@ -61,8 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
     DefaultListModel modRolAfectado;
     DefaultListModel modEdadQuinquenal;
     
-    
-    ImagePanel MapaDashboard = new ImagePanel();
+   
     
     
     public MainFrame() throws SQLException, ClassNotFoundException {
@@ -152,8 +154,6 @@ public class MainFrame extends javax.swing.JFrame {
         MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
         
         
-        System.out.println(MapaConsulta1.getLink());
-        
         
         try {
         URL url = new URL(MapaConsulta1.getLink());
@@ -169,10 +169,16 @@ public class MainFrame extends javax.swing.JFrame {
        
         
        //Carga el mapa
-       String dir = System.getProperty("user.dir")+"\\mapa.jpg";
-       MapaDashboard = new ImagePanel(new ImageIcon(dir).getImage());
-       this.ff.add(MapaDashboard);
-       this.ff.pack();
+       
+       BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("mapa.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       Image dimg = img.getScaledInstance(this.labelMapa.getWidth(), this.labelMapa.getHeight(),
+        Image.SCALE_SMOOTH);
+       this.labelMapa.setIcon(new ImageIcon(dimg));
     }
 
     /**
@@ -193,31 +199,31 @@ public class MainFrame extends javax.swing.JFrame {
         panelDashboard = new javax.swing.JPanel();
         panelAdicional = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        ff = new javax.swing.JInternalFrame();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listProvincias = new javax.swing.JList<>();
-        cbAños = new javax.swing.JComboBox<>();
+        listProvincias = new javax.swing.JList<String>();
+        cbAños = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCantones = new javax.swing.JList<>();
+        listCantones = new javax.swing.JList<String>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listDistritos = new javax.swing.JList<>();
-        cbSexo_Dashboard = new javax.swing.JComboBox<>();
+        listDistritos = new javax.swing.JList<String>();
+        cbSexo_Dashboard = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoLesion_Dashboard = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<>();
+        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<String>();
         btnProcesarDashboard1 = new javax.swing.JButton();
         btnProcesarDashboard = new javax.swing.JButton();
         btnProcesarDashboard2 = new javax.swing.JButton();
+        labelMapa = new javax.swing.JLabel();
         panelIndicador = new javax.swing.JPanel();
         panelBotones_Indicador = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -225,20 +231,20 @@ public class MainFrame extends javax.swing.JFrame {
         rbTipoAfectado_Identificador = new javax.swing.JRadioButton();
         rbTipoLesion_Indicador = new javax.swing.JRadioButton();
         rbEdadQuinquenal_Indicador = new javax.swing.JRadioButton();
-        cbAñosConsulta2 = new javax.swing.JComboBox<>();
+        cbAñosConsulta2 = new javax.swing.JComboBox<String>();
         jLabel13 = new javax.swing.JLabel();
         btnGenerarGrafica = new javax.swing.JButton();
         btnProcesarDashboard3 = new javax.swing.JButton();
         btnGenerarGrafica1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listRolAfectado_Grafica = new javax.swing.JList<>();
+        listRolAfectado_Grafica = new javax.swing.JList<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listSexo_Grafica = new javax.swing.JList<>();
+        listSexo_Grafica = new javax.swing.JList<String>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        listTipoLesion_Grafica = new javax.swing.JList<>();
+        listTipoLesion_Grafica = new javax.swing.JList<String>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        listEdadQuinquenal_Grafica = new javax.swing.JList<>();
+        listEdadQuinquenal_Grafica = new javax.swing.JList<String>();
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
@@ -265,20 +271,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Localización Geografica");
 
-        ff.setBorder(null);
-        ff.setVisible(true);
-
-        javax.swing.GroupLayout ffLayout = new javax.swing.GroupLayout(ff.getContentPane());
-        ff.getContentPane().setLayout(ffLayout);
-        ffLayout.setHorizontalGroup(
-            ffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
-        );
-        ffLayout.setVerticalGroup(
-            ffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
-        );
-
         jPanel4.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -286,10 +278,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Canton(es)");
 
         listProvincias.setBackground(new java.awt.Color(102, 102, 102));
-        listProvincias.setModel(new javax.swing.AbstractListModel<String>() {
+        listProvincias.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listProvincias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -303,7 +295,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listProvincias);
 
-        cbAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAños.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosActionPerformed(evt);
@@ -323,10 +315,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Provincia(s)");
 
         listCantones.setBackground(new java.awt.Color(102, 102, 102));
-        listCantones.setModel(new javax.swing.AbstractListModel<String>() {
+        listCantones.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listCantones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -336,14 +328,14 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listCantones);
 
         listDistritos.setBackground(new java.awt.Color(102, 102, 102));
-        listDistritos.setModel(new javax.swing.AbstractListModel<String>() {
+        listDistritos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(listDistritos);
 
-        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -357,19 +349,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tipo de Afectado");
 
-        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
+        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tipo de Lesión");
 
-        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
+        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Edad Quinquenal");
 
-        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
 
         btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
@@ -490,21 +482,21 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addGroup(panelAdicionalLayout.createSequentialGroup()
-                        .addComponent(ff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         panelAdicionalLayout.setVerticalGroup(
             panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAdicionalLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
@@ -575,7 +567,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAñosConsulta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosConsulta2ActionPerformed(evt);
@@ -615,31 +607,31 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Seleccione el rango de fechas:");
 
-        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane4.setViewportView(listRolAfectado_Grafica);
 
-        listSexo_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listSexo_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Hombre", "Mujer", "Desconocido" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane5.setViewportView(listSexo_Grafica);
 
-        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane6.setViewportView(listTipoLesion_Grafica);
 
-        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane7.setViewportView(listEdadQuinquenal_Grafica);
 
@@ -1071,7 +1063,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbSexo_Dashboard;
     private javax.swing.JComboBox<String> cbTipoAfectado_Dashboard;
     private javax.swing.JComboBox<String> cbTipoLesion_Dashboard;
-    private javax.swing.JInternalFrame ff;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1095,6 +1086,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JLabel labelMapa;
     private javax.swing.JList<String> listCantones;
     private javax.swing.JList<String> listDistritos;
     private javax.swing.JList<String> listEdadQuinquenal_Grafica;
