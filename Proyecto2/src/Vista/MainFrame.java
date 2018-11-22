@@ -8,9 +8,10 @@ import MapaDecorator.TipoVista;
 import MapaDecorator.Marker;
 import Controlador.DAODB;
 import MapaDecorator.DataMapa;
+import MapaDecorator.DecoratorCenter;
 import MapaDecorator.Mapa;
-import MapaDecorator.MarkersyCenter;
-import MapaDecorator.Zoom;
+import MapaDecorator.DecoratorMarkers;
+import MapaDecorator.DecoratorZoom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -113,18 +114,19 @@ public class MainFrame extends javax.swing.JFrame {
     
     private static void descargarMapa(){
         //True si es puntarenas
-        boolean  keepZoom = false;
-        TipoVista vista = TipoVista.PROVINCIA;
-        
+        boolean  keepZoom = true;
+        TipoVista vista = TipoVista.CANTON;
+        ArrayList<Marker> marcadores = new ArrayList<>();
+        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
         //Estructura para Cambiar
-        DataMapa a = new Mapa(TipoVista.CANTON,false);
-        a.addMarker(new Marker("10.023333333333333","-84.81083333333333",0));
+        DataMapa a = new Mapa(vista,keepZoom,marcadores);
         a.addMarker(new Marker("9.170833333333333","-83.74583333333334",0));
         a.addMarker(new Marker("10.117222222222223","-84.82777777777777",0));
         a.addMarker(new Marker("9.689444444444444","-85.10722222222222",0));
         a.addMarker(new Marker("8.627500000000001","-83.15611111111112",0));
-        a = new MarkersyCenter(a);
-        a = new Zoom(a);
+        a = new DecoratorMarkers(a);
+        a = new DecoratorCenter(a);
+        a = new DecoratorZoom(a);
         
         
         

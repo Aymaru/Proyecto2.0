@@ -12,20 +12,17 @@ import java.util.ArrayList;
  * @author juan_
  */
 public abstract class DataMapa{
-    private String BegingLink;
-    private String EndLink;
-    private String key;
-    private String zoom;
-    private String markers;
-    private String center;
-    private double minLat = Integer.MAX_VALUE;
-    private double maxLat = Integer.MIN_VALUE;
-    private double minLog = Integer.MAX_VALUE;
-    private double maxLog = Integer.MIN_VALUE;
-    private TipoVista vista;
-    private boolean keepZoom;
-    private ArrayList<Marker> marcadores = new ArrayList<>();
-    private ArrayList<String> colores;
+    protected String BegingLink;
+    protected String EndLink;
+    protected String key;
+    protected String zoom;
+    protected String markers;
+    protected String center;
+    
+    protected TipoVista vista;
+    protected boolean keepZoom;
+    protected ArrayList<Marker> marcadores = new ArrayList<>();
+    protected ArrayList<String> colores;
 
     
     public abstract String getLink();
@@ -34,113 +31,62 @@ public abstract class DataMapa{
         marcadores.add(a);
     }
 
-    protected String getBegingLink() {
-        return BegingLink;
-    }
+    protected abstract String getBegingLink();
 
     protected void setBegingLink(String BegingLink) {
         this.BegingLink = BegingLink;
     }
 
-    protected String getEndLink() {
-        return EndLink;
-    }
+    protected abstract String getEndLink();
 
     protected void setEndLink(String EndLink) {
         this.EndLink = EndLink;
     }
+    
 
-    protected double getMinLat() {
-        return minLat;
-    }
-
-    protected void setMinLat(double minLat) {
-        this.minLat = minLat;
-    }
-
-    protected double getMaxLat() {
-        return maxLat;
-    }
-
-    protected void setMaxLat(double maxLat) {
-        this.maxLat = maxLat;
-    }
-
-    protected double getMinLog() {
-        return minLog;
-    }
-
-    protected void setMinLog(double minLog) {
-        this.minLog = minLog;
-    }
-
-    protected double getMaxLog() {
-        return maxLog;
-    }
-
-    protected void setMaxLog(double maxLog) {
-        this.maxLog = maxLog;
-    }
-
-    protected TipoVista getVista() {
-        return vista;
-    }
+    protected abstract TipoVista getVista();
 
     protected void setVista(TipoVista vista) {
         this.vista = vista;
     }
 
-    protected boolean isKeepZoom() {
-        return keepZoom;
-    }
+    protected abstract boolean isKeepZoom();
 
     protected void setKeepZoom(boolean keepZoom) {
         this.keepZoom = keepZoom;
     }
 
-    protected ArrayList<Marker> getMarcadores() {
-        return marcadores;
-    }
+    protected abstract ArrayList<Marker> getMarcadores();
 
     protected void setMarcadores(ArrayList<Marker> marcadores) {
         this.marcadores = marcadores;
     }
 
-    protected ArrayList<String> getColores() {
-        return colores;
-    }
+    protected abstract ArrayList<String> getColores();
 
     protected void setColores(ArrayList<String> colores) {
         this.colores = colores;
     }
 
-    protected String getKey() {
-        return key;
-    }
+    protected abstract String getKey();
 
     protected void setKey(String key) {
         this.key = key;
     }
 
-    protected String getZoom() {
-        return zoom;
-    }
+    protected abstract String getZoom();
 
     protected void setZoom(String zoom) {
         this.zoom = zoom;
     }
 
-    protected String getMarkers() {
-        return markers;
-    }
+    protected abstract String getMarkers();
 
     protected void setMarkers(String markers) {
         this.markers = markers;
     }
 
-    protected String getCenter() {
-        return center;
-    }
+    protected abstract String getCenter();
 
     protected void setCenter(String center) {
         this.center = center;

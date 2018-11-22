@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Mapa extends DataMapa{
 
-    public Mapa(TipoVista vista,boolean keepZoom) {
+    public Mapa(TipoVista vista,boolean keepZoom,ArrayList<Marker> markers) {
         super.setBegingLink("https://maps.googleapis.com/maps/api/staticmap"); 
         super.setEndLink("&size=1029x550&scale=4");
         super.setKey("&key=AIzaSyAUt8LSR_YdBgd-F5uLmk1F5iUqhnbwA7E");
@@ -22,6 +22,7 @@ public class Mapa extends DataMapa{
         super.setMarkers("");
         super.setKeepZoom(keepZoom);
         super.setVista(vista);
+        super.setMarcadores(markers);
         ArrayList<String> colores = new ArrayList<>();
         colores.add("black");
         colores.add("brown");
@@ -41,7 +42,58 @@ public class Mapa extends DataMapa{
     
     @Override
     public String getLink() {
-        return super.getBegingLink()+super.getCenter()+super.getZoom()+super.getEndLink()+super.getMarkers()+super.getKey();
+        return super.BegingLink+super.center+super.zoom+super.EndLink+super.markers+super.key;
+    }
+
+    @Override
+    protected TipoVista getVista() {
+        return super.vista;
+    }
+
+    @Override
+    protected String getBegingLink() {
+        return super.BegingLink;
+    }
+
+    @Override
+    protected String getEndLink() {
+        return super.EndLink;
+    }
+
+
+    @Override
+    protected boolean isKeepZoom() {
+        return super.keepZoom;
+    }
+
+    @Override
+    protected ArrayList<Marker> getMarcadores() {
+        return super.marcadores;
+    }
+
+    @Override
+    protected ArrayList<String> getColores() {
+        return super.colores;
+    }
+
+    @Override
+    protected String getKey() {
+        return super.key;
+    }
+
+    @Override
+    protected String getZoom() {
+        return super.zoom;
+    }
+
+    @Override
+    protected String getMarkers() {
+        return super.markers;
+    }
+
+    @Override
+    protected String getCenter() {
+        return super.center;
     }
 
    
