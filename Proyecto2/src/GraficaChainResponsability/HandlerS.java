@@ -5,8 +5,9 @@
  */
 package GraficaChainResponsability;
 
+import Controlador.DAODB;
+import Controlador.DTOConsulta;
 import Controlador.TipoIdentificador;
-import java.util.ArrayList;
 
 
 /**
@@ -16,7 +17,12 @@ import java.util.ArrayList;
 public class HandlerS implements IHandler{
     
     private IHandler nextHandler;
+    private DAODB baseDatos;
 
+    public HandlerS() throws ClassNotFoundException {
+        this.baseDatos = new DAODB();
+    }
+    
     @Override
     public void setNuevoHandler(IHandler handler) {
         nextHandler = handler;
@@ -28,14 +34,19 @@ public class HandlerS implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
-        if (tipo == TipoIdentificador.SEXO){
+    public DTOConsulta generarChart(DTOConsulta dto) {
+        if (dto.getTipoIdentificador() == TipoIdentificador.SEXO){
             // Se empieza a generar la grafica
+            for (String indicador : dto.getIndicadores()){
+                dto.setIdentificador(indicador);
+                dto = baseDatos.consultaGrafica(dto);
+                
+            }
             
         }else{
-            nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
+            nextHandler.generarChart(dto); // siguiente
         } 
-        
+        return dto;
     }
     
 }

@@ -5,6 +5,8 @@
  */
 package GraficaChainResponsability;
 
+import Controlador.DAODB;
+import Controlador.DTOConsulta;
 import Controlador.TipoIdentificador;
 import java.util.ArrayList;
 import org.jfree.chart.JFreeChart;
@@ -16,6 +18,11 @@ import org.jfree.chart.JFreeChart;
 public class HandlerEQ implements IHandler{
     
     private IHandler nextHandler;
+    private DAODB baseDatos;
+    
+    public HandlerEQ() throws ClassNotFoundException {
+        this.baseDatos = new DAODB();
+    }
 
     @Override
     public void setNuevoHandler(IHandler handler) {
@@ -28,13 +35,18 @@ public class HandlerEQ implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
-        if (tipo == TipoIdentificador.EDAD_QUINQUENAL){
+    public DTOConsulta generarChart(DTOConsulta dto) {
+        if (dto.getTipoIdentificador() == TipoIdentificador.EDAD_QUINQUENAL){
             // Se empieza a generar la grafica
-            
+            for (String indicador : dto.getIndicadores()){
+                dto.setIdentificador(indicador);
+                baseDatos.consultaGrafica(dto);
+                
+            }
         }else{
-            nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
-        }         
+            nextHandler.generarChart(dto); // siguiente
+        } 
+        return dto;
     }
     
 }

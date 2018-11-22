@@ -5,8 +5,7 @@
  */
 package GraficaChainResponsability;
 
-import Controlador.TipoIdentificador;
-import java.util.ArrayList;
+import Controlador.DTOConsulta;
 
 
 public interface IHandler {
@@ -15,7 +14,7 @@ public interface IHandler {
    
    public  IHandler getSiguiente();
    
-   public  void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores);
+   public  DTOConsulta generarChart(DTOConsulta dto);
    
     
 }

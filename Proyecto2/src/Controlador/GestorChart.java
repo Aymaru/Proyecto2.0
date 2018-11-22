@@ -8,6 +8,8 @@ package Controlador;
 import GraficaChainResponsability.HandlerTL;
 import GraficaChainResponsability.IHandler;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,12 +22,12 @@ public class GestorChart {
     }
     
     public DTOConsulta generarGrafica(DTOConsulta dtoConsulta){
-        IHandler handlerGrafico = new HandlerTL();
-        String ano1 = dtoConsulta.año_ini;
-        String ano2 = dtoConsulta.año_fin;
-        TipoIdentificador tipo = dtoConsulta.tipoIdentificador;
-        ArrayList indicadores = dtoConsulta.getIndicadores();
-        handlerGrafico.generarChart(ano1, ano2, tipo, indicadores);
+        try {
+            IHandler handlerGrafico = new HandlerTL();
+            handlerGrafico.generarChart(dtoConsulta);            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GestorChart.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return dtoConsulta;
     }
     

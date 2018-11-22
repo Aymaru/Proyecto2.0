@@ -1,13 +1,22 @@
 package GraficaChainResponsability;
 
+import Controlador.DAODB;
+import Controlador.DTOConsulta;
 import Controlador.TipoIdentificador;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class HandlerTL implements IHandler{
     
     private IHandler nextHandler;
+    private DAODB baseDatos;
 
+    public HandlerTL() throws ClassNotFoundException {
+        this.baseDatos = new DAODB();
+    }
+    
     @Override
     public void setNuevoHandler(IHandler handler) {
         nextHandler = handler;
@@ -19,22 +28,29 @@ public class HandlerTL implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
-        //Setteado de precesores
-        HandlerS hS = new HandlerS();
-        this.setNuevoHandler(hS);
-        HandlerRA hRA = new HandlerRA();
-        hS.setNuevoHandler(hRA);
-        HandlerEQ hEQ = new HandlerEQ();
-        hRA.setNuevoHandler(hEQ);
-        
-        if (tipo == TipoIdentificador.TIPO_LESION){
+    public DTOConsulta generarChart(DTOConsulta dto) {
+        try {
+            //Setteado de precesores
+            HandlerS hS = new HandlerS();
+            this.setNuevoHandler(hS);
+            HandlerRA hRA = new HandlerRA();
+            hS.setNuevoHandler(hRA);
+            HandlerEQ hEQ = new HandlerEQ();
+            hRA.setNuevoHandler(hEQ);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (dto.getTipoIdentificador() == TipoIdentificador.TIPO_LESION){
             // Se empieza a generar la grafica
-            
+            for (String indicador : dto.getIndicadores()){
+                dto.setIdentificador(indicador);
+                dto = baseDatos.consultaGrafica(dto);
+                
+            }
         }else{
-            nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
-        }      
-        
+            nextHandler.generarChart(dto); // siguiente
+        } 
+        return dto;
     }
     
 }
