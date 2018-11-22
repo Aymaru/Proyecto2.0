@@ -21,8 +21,11 @@ public class DecoratorZoom extends MapaDecorator{
     @Override
     public String getLink() {
         String Nzoom = "8";
-        if (getData().isKeepZoom()){
+        if (getData().isKeepZoomC()){
             Nzoom = "8";
+        }
+        else if (getData().isKeepZoomD()){
+            Nzoom = "10";
         }
         else{
             if (getData().getMarcadores().size() > 0){
@@ -57,12 +60,15 @@ public class DecoratorZoom extends MapaDecorator{
         return getData().getEndLink();
     }
 
-   
+   @Override
+    protected boolean isKeepZoomD() {
+        return getData().isKeepZoomD();
+    }
 
 
     @Override
-    protected boolean isKeepZoom() {
-        return getData().isKeepZoom();
+    protected boolean isKeepZoomC() {
+        return getData().isKeepZoomC();
     }
 
     @Override

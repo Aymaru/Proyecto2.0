@@ -52,8 +52,14 @@ public class DecoratorMarkers extends MapaDecorator{
 
 
     @Override
-    protected boolean isKeepZoom() {
-        return getData().isKeepZoom();
+    protected boolean isKeepZoomD() {
+        return getData().isKeepZoomD();
+    }
+
+
+    @Override
+    protected boolean isKeepZoomC() {
+        return getData().isKeepZoomC();
     }
 
     @Override

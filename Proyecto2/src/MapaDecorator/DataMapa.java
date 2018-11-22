@@ -20,7 +20,8 @@ public abstract class DataMapa{
     protected String center;
     
     protected TipoVista vista;
-    protected boolean keepZoom;
+    protected boolean keepZoomC;
+    protected boolean keepZoomD;
     protected ArrayList<Marker> marcadores = new ArrayList<>();
     protected ArrayList<String> colores;
 
@@ -50,12 +51,17 @@ public abstract class DataMapa{
         this.vista = vista;
     }
 
-    protected abstract boolean isKeepZoom();
+    protected abstract boolean isKeepZoomC();
 
-    public void setKeepZoom(boolean keepZoom) {
-        this.keepZoom = keepZoom;
+    public void setKeepZoomC(boolean keepZoomC) {
+        this.keepZoomC = keepZoomC;
     }
+    
+    protected abstract boolean isKeepZoomD();
 
+    public void setKeepZoomD(boolean keepZoomD) {
+        this.keepZoomD = keepZoomD;
+    }
     protected abstract ArrayList<Marker> getMarcadores();
 
     public void setMarcadores(ArrayList<Marker> marcadores) {

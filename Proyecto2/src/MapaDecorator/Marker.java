@@ -15,13 +15,15 @@ public class Marker {
     private String lat;
     private String lon;
     private char label;
+    private String nombre;
     private int cantidad;
 
-    public Marker(String lat, String lon,int cantidad) {
+    public Marker(String lat, String lon,int cantidad,String nombre) {
         this.lat = lat;
         this.lon = lon;
         this.label = (char) (count + 'A');
         this.cantidad = cantidad;
+        this.nombre = nombre;
         count++;
         if (this.count > 25){
             count -=43;
@@ -59,6 +61,14 @@ public class Marker {
 
     public void setLabel(char label) {
         this.label = label;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     
