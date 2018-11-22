@@ -5,6 +5,9 @@
  */
 package GraficaChainResponsability;
 
+import Controlador.TipoIdentificador;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -25,8 +28,8 @@ public class HandlerRA implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, String tipo, String[] indicadores) {
-        if (tipo.equals("Tipo de Afectado")){
+    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
+        if (tipo == TipoIdentificador.ROL_AFECTADO){
             
             
         }else{

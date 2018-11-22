@@ -65,8 +65,9 @@ public class Controlador {
     }
     
     public DTOConsulta getGrafica(DTOConsulta dto){
-        this.dtoConsulta = dao.consultaGrafica(dto);
-        return this.dtoConsulta;
+        //VER LO DEL DAO
+        GestorChart gestorGrafico = new GestorChart();
+        return gestorGrafico.generarGrafica(dto);
     }
     
     

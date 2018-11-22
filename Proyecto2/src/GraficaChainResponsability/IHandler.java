@@ -5,7 +5,8 @@
  */
 package GraficaChainResponsability;
 
-import org.jfree.chart.JFreeChart;
+import Controlador.TipoIdentificador;
+import java.util.ArrayList;
 
 
 public interface IHandler {
@@ -14,7 +15,7 @@ public interface IHandler {
    
    public  IHandler getSiguiente();
    
-   public  void generarChart(String ano1, String ano2, String tipo, String[] indicadores);
+   public  void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores);
    
     
 }
