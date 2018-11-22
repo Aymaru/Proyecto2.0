@@ -982,11 +982,82 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         
-        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
-        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
-        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
-        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
+        //Generador de consulta
+        String anos = (String)cbAños.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
+        
+        
+        
+        String sexo = null;
+        if (!(this.cbSexo_Dashboard.getSelectedItem().toString().equals("-"))){
+            sexo = this.cbSexo_Dashboard.getSelectedItem().toString();
+        }
+        dtoConsulta.setSexo(sexo);
+        
+        
+        
+        String tipo_lesion = null;
+        if (!(this.cbTipoLesion_Dashboard.getSelectedItem().toString().equals("-"))){
+            tipo_lesion = this.cbTipoLesion_Dashboard.getSelectedItem().toString();
+        }
+        dtoConsulta.setTipo_lesion(tipo_lesion);
+        
+        
+        String rol_afectado = null;
+        if (!(this.cbTipoAfectado_Dashboard.getSelectedItem().toString().equals("-"))){
+            rol_afectado = this.cbTipoAfectado_Dashboard.getSelectedItem().toString();
+        }
+        dtoConsulta.setRol_afectado(rol_afectado);
+        
+        String edad_quinquenial = null;
+        if (!(this.cbEdadQuinquenal_Dashboard.getSelectedItem().toString().equals("-"))){
+            edad_quinquenial = this.cbEdadQuinquenal_Dashboard.getSelectedItem().toString();
+        }
+        dtoConsulta.setEdad_quinquenal(edad_quinquenial);
+        
+        
+        
+        // hacer por cada consulta
+        if (vista == TipoVista.PROVINCIA){
+            for (String p:this.listProvincias.getSelectedValuesList()){
+                dtoConsulta.setProvincia(p);
+                
+                dtoConsulta = controller.consultaDashboard(dtoConsulta);
+                ResultSet rs = dtoConsulta.getRs();
+
+
+                try {
+                    while(rs.next()){
+                        String lat = rs.getString(5);
+                        String lon = rs.getString(6);
+                        int cantidad = Integer.valueOf(rs.getString(1));
+                        marcadores.add(new Marker(lat,lon,cantidad));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
+        
+        
+        
+        //Final de consulta
+        
+        
+//        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
+//        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
+//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
+//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
+//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
         
         
         
