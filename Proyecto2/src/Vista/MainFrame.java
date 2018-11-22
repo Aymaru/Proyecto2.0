@@ -9,6 +9,7 @@ import Controlador.Controlador;
 import MapaDecorator.TipoVista;
 import MapaDecorator.Marker;
 import Controlador.DAODB;
+import Controlador.DTOConsulta;
 import Controlador.DTOInterfaz;
 import MapaDecorator.DataMapa;
 import MapaDecorator.DecoratorCenter;
@@ -49,6 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
     Controlador controller;
     DTOInterfaz dtoInterfaz_Entrada;
     DTOInterfaz dtoInterfaz_Salida;
+    DTOConsulta dtoConsulta;
     
     //Definir modelo de datos para las listas de la interfaz
     
@@ -195,24 +197,24 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listProvincias = new javax.swing.JList<String>();
-        cbAños = new javax.swing.JComboBox<String>();
+        listProvincias = new javax.swing.JList<>();
+        cbAños = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCantones = new javax.swing.JList<String>();
+        listCantones = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listDistritos = new javax.swing.JList<String>();
-        cbSexo_Dashboard = new javax.swing.JComboBox<String>();
+        listDistritos = new javax.swing.JList<>();
+        cbSexo_Dashboard = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<String>();
+        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        cbTipoLesion_Dashboard = new javax.swing.JComboBox<String>();
+        cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<String>();
+        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<>();
         btnProcesarDashboard1 = new javax.swing.JButton();
         btnProcesarDashboard = new javax.swing.JButton();
         btnProcesarDashboard2 = new javax.swing.JButton();
@@ -223,20 +225,20 @@ public class MainFrame extends javax.swing.JFrame {
         rbTipoAfectado_Identificador = new javax.swing.JRadioButton();
         rbTipoLesion_Indicador = new javax.swing.JRadioButton();
         rbEdadQuinquenal_Indicador = new javax.swing.JRadioButton();
-        cbAñosConsulta2 = new javax.swing.JComboBox<String>();
+        cbAñosConsulta2 = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         btnGenerarGrafica = new javax.swing.JButton();
         btnProcesarDashboard3 = new javax.swing.JButton();
         btnGenerarGrafica1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listRolAfectado_Grafica = new javax.swing.JList<String>();
+        listRolAfectado_Grafica = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listSexo_Grafica = new javax.swing.JList<String>();
+        listSexo_Grafica = new javax.swing.JList<>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        listTipoLesion_Grafica = new javax.swing.JList<String>();
+        listTipoLesion_Grafica = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        listEdadQuinquenal_Grafica = new javax.swing.JList<String>();
+        listEdadQuinquenal_Grafica = new javax.swing.JList<>();
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
@@ -284,10 +286,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Canton(es)");
 
         listProvincias.setBackground(new java.awt.Color(102, 102, 102));
-        listProvincias.setModel(new javax.swing.AbstractListModel() {
+        listProvincias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         listProvincias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -301,7 +303,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listProvincias);
 
-        cbAños.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosActionPerformed(evt);
@@ -321,10 +323,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Provincia(s)");
 
         listCantones.setBackground(new java.awt.Color(102, 102, 102));
-        listCantones.setModel(new javax.swing.AbstractListModel() {
+        listCantones.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         listCantones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -334,14 +336,14 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listCantones);
 
         listDistritos.setBackground(new java.awt.Color(102, 102, 102));
-        listDistritos.setModel(new javax.swing.AbstractListModel() {
+        listDistritos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(listDistritos);
 
-        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -355,19 +357,19 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tipo de Afectado");
 
-        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
+        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tipo de Lesión");
 
-        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
+        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Edad Quinquenal");
 
-        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
 
         btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
@@ -466,7 +468,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -573,7 +575,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAñosConsulta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosConsulta2ActionPerformed(evt);
@@ -613,31 +615,31 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Seleccione el rango de fechas:");
 
-        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel() {
+        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane4.setViewportView(listRolAfectado_Grafica);
 
-        listSexo_Grafica.setModel(new javax.swing.AbstractListModel() {
+        listSexo_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Hombre", "Mujer", "Desconocido" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane5.setViewportView(listSexo_Grafica);
 
-        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel() {
+        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane6.setViewportView(listTipoLesion_Grafica);
 
-        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel() {
+        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jScrollPane7.setViewportView(listEdadQuinquenal_Grafica);
 
@@ -675,7 +677,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel13)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbAñosConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10)
@@ -695,7 +697,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(rbEdadQuinquenal_Indicador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGenerarGrafica1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGenerarGrafica)
@@ -736,7 +738,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(492, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Indicador de Comportamiento", panelIndicador);
@@ -801,7 +803,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 1319, Short.MAX_VALUE)
+                .addComponent(panelPrincipal)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -922,47 +924,51 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcesarDashboard2ActionPerformed
 
     private void btnGenerarGrafica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGrafica1ActionPerformed
-        String indicador = "";
-        if (rbSexo_Indicador.isSelected())indicador = "Sexo";
-        if (rbEdadQuinquenal_Indicador.isSelected())indicador = "Edad Quiquenal";
-        if (rbTipoAfectado_Identificador.isSelected())indicador = "Tipo de Afectado";
-        if (rbTipoLesion_Indicador.isSelected())indicador = "Tipo de Lesión";
-        
-        XYSeries series = new XYSeries("");
-        XYSeries series2 = new XYSeries("");
-        double poblacion = 0.7;
-        double tasa_crecimiento = 3.9;
-
-        for (int i = 0; i < 30; i++) {
-            series.add(i, poblacion * 100);
-            // Variante de la ecuacion de Verhulst
-            poblacion = poblacion * tasa_crecimiento * (1 - poblacion);
+        //Set de rango anos
+        String anos = (String)cbAñosConsulta2.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
         }
         
-        poblacion = 0.6;
-        tasa_crecimiento = 4;
-        
-        for (int i = 0; i < 30; i++) {
-            series2.add(i, poblacion * 100);
-            // Variante de la ecuacion de Verhulst
-            poblacion = poblacion * tasa_crecimiento * (1 - poblacion);
+        //Set info de los indicadores
+        ArrayList info = new ArrayList();
+        if (rbSexo_Indicador.isSelected()){
+            dtoConsulta.setSexo("Sexo");
+            for(Object dato : listSexo_Grafica.getSelectedValues()){
+                info.add((String)dato);
+            }
+            dtoConsulta.setSexos(info);
         }
-
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
-        dataset.addSeries(series2);
-
-        JFreeChart chart = ChartFactory.createXYLineChart(
-                indicador,
-                "Tiempo",
-                "Población",
-                dataset,
-                PlotOrientation.VERTICAL,
-                false,
-                false,
-                false
-        );
-
+        info.clear();
+        if (rbEdadQuinquenal_Indicador.isSelected()){
+            dtoConsulta.setEdad_quinquenal("Edad Quiquenal");
+            for(Object dato : listEdadQuinquenal_Grafica.getSelectedValues()){
+                info.add((String)dato);
+            }
+            dtoConsulta.setEdadQuinquenales(info);
+        }
+        info.clear();
+        if (rbTipoAfectado_Identificador.isSelected()){
+            dtoConsulta.setRol_afectado("Tipo de Afectado");
+            for(Object dato : listRolAfectado_Grafica.getSelectedValues()){
+                info.add((String)dato);
+            }
+            dtoConsulta.setRolAfectados(info);
+        }
+        if (rbTipoLesion_Indicador.isSelected()){
+            dtoConsulta.setTipo_lesion("Tipo de Lesión");
+            for(Object dato : listTipoLesion_Grafica.getSelectedValues()){
+                info.add((String)dato);
+            }
+            dtoConsulta.setTipoLesiones(info);
+        }
+        
+        JFreeChart chart = controller.getGrafica(dtoConsulta).getGrafica();
         // Mostramos la grafica dentro del jPanel1
         ChartPanel panel = new ChartPanel(chart);        
         panelGrafico.setLayout(new java.awt.GridLayout());
