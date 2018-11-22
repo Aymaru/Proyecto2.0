@@ -7,8 +7,10 @@ package Vista;
 import MapaDecorator.TipoVista;
 import MapaDecorator.Marker;
 import Controlador.DAODB;
-import MapaDecorator.IAgregable;
+import MapaDecorator.DataMapa;
 import MapaDecorator.Mapa;
+import MapaDecorator.MarkersyCenter;
+import MapaDecorator.Zoom;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -99,6 +101,13 @@ public class MainFrame extends javax.swing.JFrame {
             modEdadQuinquenal.addElement(rs.getString("EdadQuinquenal").trim());
         }
         
+        
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -106,85 +115,23 @@ public class MainFrame extends javax.swing.JFrame {
         //True si es puntarenas
         boolean  keepZoom = false;
         TipoVista vista = TipoVista.PROVINCIA;
-        ArrayList<Marker> marcadores = new ArrayList<>();
-        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
-//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
-//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
-//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
-        //arriba parametros
+        
+        //Estructura para Cambiar
+        DataMapa a = new Mapa(TipoVista.CANTON,false);
+        a.addMarker(new Marker("10.023333333333333","-84.81083333333333",0));
+        a.addMarker(new Marker("9.170833333333333","-83.74583333333334",0));
+        a.addMarker(new Marker("10.117222222222223","-84.82777777777777",0));
+        a.addMarker(new Marker("9.689444444444444","-85.10722222222222",0));
+        a.addMarker(new Marker("8.627500000000001","-83.15611111111112",0));
+        a = new MarkersyCenter(a);
+        a = new Zoom(a);
         
         
         
         
-        ArrayList<String> colores = new ArrayList<>();
-        colores.add("black");
-        colores.add("brown");
-        colores.add("green");
-        colores.add("purple");
-        colores.add("yellow");
-        colores.add("blue");
-        colores.add("gray");
-        colores.add("orange");
-        colores.add("red");
-        colores.add("white");
         
-        String center = "?center=";
-        String zoom = "&zoom=";
-        if (marcadores.size() > 0){
-            if (TipoVista.PROVINCIA == vista){
-                zoom+= "8";
-            }
-            else if (TipoVista.CANTON == vista){
-                if (keepZoom){
-                    zoom += "8";
-                }
-                else{
-                    zoom += "9";
-                }
-                
-            }
-            else if (TipoVista.DISTRITO == vista){
-                zoom += "11";
-            }
-            
-        }
-        else{
-            center += "9.72828,-84.2299717";
-            zoom+= "8";
-        }
-        String key = "&key=AIzaSyAUt8LSR_YdBgd-F5uLmk1F5iUqhnbwA7E";
-        String markers = "";
-        int color = 0;
-        double minLat = Integer.MAX_VALUE,maxLat = Integer.MIN_VALUE;
-        double minLog = Integer.MAX_VALUE,maxLog = Integer.MIN_VALUE;
-        for (int i=0;i<marcadores.size();i++){
-            color = i % colores.size();
-            markers += "&markers=color:"+colores.get(i)+"%7Clabel:"+marcadores.get(i).getLabel()+"%7C"+marcadores.get(i).getDir();
-            if (minLat>Double.valueOf(marcadores.get(i).getLat())){
-                minLat = Double.valueOf(marcadores.get(i).getLat());
-            }
-            if (minLog>Double.valueOf(marcadores.get(i).getLon())){
-                minLog = Double.valueOf(marcadores.get(i).getLon());
-            }
-            if (maxLat<Double.valueOf(marcadores.get(i).getLat())){
-                maxLat = Double.valueOf(marcadores.get(i).getLat());
-            }
-            if (maxLog<Double.valueOf(marcadores.get(i).getLon())){
-                maxLog = Double.valueOf(marcadores.get(i).getLon());
-            }
-        }
-        if (marcadores.size() > 0 && vista != TipoVista.PROVINCIA){
-            double centerLatitude = ( minLat + maxLat ) / 2;
-            double centerLongitude = ( minLog + maxLog ) / 2;
-            center += String.valueOf(centerLatitude)+","+String.valueOf(centerLongitude);
-        }
-        String m = "https://maps.googleapis.com/maps/api/staticmap"+center+zoom+"&size=1029x550&scale=4";
-        m  += markers + key;
-        IAgregable a = new Mapa();
-        System.out.println(a.getLink());
         try {
-        URL url = new URL(m);
+        URL url = new URL(a.getLink());
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
         httpcon.addRequestProperty("User-Agent", ""); 
         BufferedImage image = ImageIO.read(httpcon.getInputStream());

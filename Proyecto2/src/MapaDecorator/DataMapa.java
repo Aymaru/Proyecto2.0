@@ -5,11 +5,13 @@
  */
 package MapaDecorator;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author juan_
  */
-public abstract class DataMapa implements IAgregable{
+public abstract class DataMapa{
     private String BegingLink;
     private String EndLink;
     private String key;
@@ -20,86 +22,131 @@ public abstract class DataMapa implements IAgregable{
     private double maxLat = Integer.MIN_VALUE;
     private double minLog = Integer.MAX_VALUE;
     private double maxLog = Integer.MIN_VALUE;
+    private TipoVista vista;
+    private boolean keepZoom;
+    private ArrayList<Marker> marcadores = new ArrayList<>();
+    private ArrayList<String> colores;
 
-    public String getBegingLink() {
+    
+    public abstract String getLink();
+    
+    public void addMarker(Marker a){
+        marcadores.add(a);
+    }
+
+    protected String getBegingLink() {
         return BegingLink;
     }
 
-    public void setBegingLink(String BegingLink) {
+    protected void setBegingLink(String BegingLink) {
         this.BegingLink = BegingLink;
     }
 
-    public String getEndLink() {
+    protected String getEndLink() {
         return EndLink;
     }
 
-    public void setEndLink(String EndLink) {
+    protected void setEndLink(String EndLink) {
         this.EndLink = EndLink;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getZoom() {
-        return zoom;
-    }
-
-    public void setZoom(String zoom) {
-        this.zoom = zoom;
-    }
-
-    public String getMarkers() {
-        return markers;
-    }
-
-    public void setMarkers(String markers) {
-        this.markers = markers;
-    }
-
-    public String getCenter() {
-        return center;
-    }
-
-    public void setCenter(String center) {
-        this.center = center;
-    }
-
-    public double getMinLat() {
+    protected double getMinLat() {
         return minLat;
     }
 
-    public void setMinLat(double minLat) {
+    protected void setMinLat(double minLat) {
         this.minLat = minLat;
     }
 
-    public double getMaxLat() {
+    protected double getMaxLat() {
         return maxLat;
     }
 
-    public void setMaxLat(double maxLat) {
+    protected void setMaxLat(double maxLat) {
         this.maxLat = maxLat;
     }
 
-    public double getMinLog() {
+    protected double getMinLog() {
         return minLog;
     }
 
-    public void setMinLog(double minLog) {
+    protected void setMinLog(double minLog) {
         this.minLog = minLog;
     }
 
-    public double getMaxLog() {
+    protected double getMaxLog() {
         return maxLog;
     }
 
-    public void setMaxLog(double maxLog) {
+    protected void setMaxLog(double maxLog) {
         this.maxLog = maxLog;
     }
+
+    protected TipoVista getVista() {
+        return vista;
+    }
+
+    protected void setVista(TipoVista vista) {
+        this.vista = vista;
+    }
+
+    protected boolean isKeepZoom() {
+        return keepZoom;
+    }
+
+    protected void setKeepZoom(boolean keepZoom) {
+        this.keepZoom = keepZoom;
+    }
+
+    protected ArrayList<Marker> getMarcadores() {
+        return marcadores;
+    }
+
+    protected void setMarcadores(ArrayList<Marker> marcadores) {
+        this.marcadores = marcadores;
+    }
+
+    protected ArrayList<String> getColores() {
+        return colores;
+    }
+
+    protected void setColores(ArrayList<String> colores) {
+        this.colores = colores;
+    }
+
+    protected String getKey() {
+        return key;
+    }
+
+    protected void setKey(String key) {
+        this.key = key;
+    }
+
+    protected String getZoom() {
+        return zoom;
+    }
+
+    protected void setZoom(String zoom) {
+        this.zoom = zoom;
+    }
+
+    protected String getMarkers() {
+        return markers;
+    }
+
+    protected void setMarkers(String markers) {
+        this.markers = markers;
+    }
+
+    protected String getCenter() {
+        return center;
+    }
+
+    protected void setCenter(String center) {
+        this.center = center;
+    }
+
+    
     
     
     

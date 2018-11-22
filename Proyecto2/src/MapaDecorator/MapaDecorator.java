@@ -9,20 +9,22 @@ package MapaDecorator;
  *
  * @author juan_
  */
-public abstract class MapaDecorator implements IAgregable{
-    private IAgregable agregable;
+public abstract class MapaDecorator extends DataMapa{
+    private DataMapa data;
 
-    public MapaDecorator(IAgregable agregable) {
-        setAgregable(agregable);
+    public MapaDecorator(DataMapa data) {
+        setData(data);
     }
 
-    public IAgregable getAgregable() {
-        return agregable;
+    public DataMapa getData() {
+        return data;
     }
 
-    public void setAgregable(IAgregable agregable) {
-        this.agregable = agregable;
+    public void setData(DataMapa data) {
+        this.data = data;
     }
+
+    
     
     
     

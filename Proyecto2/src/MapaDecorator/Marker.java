@@ -23,6 +23,10 @@ public class Marker {
         this.label = (char) (count + 'A');
         this.cantidad = cantidad;
         count++;
+        if (this.count > 25){
+            count -=43;
+        }
+        
     }
 
     public String getLat() {
