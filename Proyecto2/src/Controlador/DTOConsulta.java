@@ -8,6 +8,7 @@ package Controlador;
 import MapaDecorator.TipoVista;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import org.jfree.chart.JFreeChart;
 
 /**
  *
@@ -33,6 +34,7 @@ public class DTOConsulta {
     ArrayList<String> rolAfectados;
     ArrayList<String> tipoLesiones;
     ArrayList<String> edadQuinquenales;
+    JFreeChart grafica;
 
     //Constructor
     public DTOConsulta() {
@@ -175,10 +177,15 @@ public class DTOConsulta {
     public void setEdad_quinquenal(String edad_quinquenal) {
         this.edad_quinquenal = edad_quinquenal;
     }
-    
-  
 
+    public JFreeChart getGrafica() {
+        return grafica;
+    }
+
+    public void setGrafica(JFreeChart grafica) {
+        this.grafica = grafica;
+    }
     
-    
+      
     
 }

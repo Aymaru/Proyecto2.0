@@ -3,15 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ChainResponsability;
+package GraficaChainResponsability;
 
-import org.jfree.chart.JFreeChart;
 
 /**
  *
  * @author Sebastian
  */
-public class HandlerEQ implements IHandler{
+public class HandlerRA implements IHandler{
     
     private IHandler nextHandler;
 
@@ -27,12 +26,14 @@ public class HandlerEQ implements IHandler{
 
     @Override
     public void generarChart(String ano1, String ano2, String tipo, String[] indicadores) {
-        if (tipo.equals("Edad Quiquenal")){
-            // Se empieza a generar la grafica
+        if (tipo.equals("Tipo de Afectado")){
+            
             
         }else{
             nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
-        }         
+        } 
+        
     }
+   
     
 }

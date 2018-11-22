@@ -11,10 +11,12 @@ package Controlador;
  */
 public class Controlador {
     DTOInterfaz dtoInterfaz;
+    DTOConsulta dtoConsulta;
     DAODB dao;
     public Controlador() throws ClassNotFoundException {
         this.dao = new DAODB();
         this.dtoInterfaz = new DTOInterfaz();
+        this.dtoConsulta = new DTOConsulta();
     }
     
     //Funciones para cargar datos a la interfaz
@@ -48,6 +50,13 @@ public class Controlador {
         this.dtoInterfaz = dao.getDistritos(dto);
         return this.dtoInterfaz;
     }
+    
+    public DTOConsulta getGrafica(DTOConsulta dto){
+        this.dtoConsulta = dao.consultaGrafica(dto);
+        return this.dtoConsulta;
+    }
+    
+    
     //Getters y Setters
 
     public DAODB getDao() {
