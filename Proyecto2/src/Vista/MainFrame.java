@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package Vista;
+import MapaDecorator.TipoVista;
+import MapaDecorator.Marker;
 import Controlador.DAODB;
+import MapaDecorator.IAgregable;
+import MapaDecorator.Mapa;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.HttpURLConnection;
@@ -103,11 +107,11 @@ public class MainFrame extends javax.swing.JFrame {
         boolean  keepZoom = false;
         TipoVista vista = TipoVista.PROVINCIA;
         ArrayList<Marker> marcadores = new ArrayList<>();
-        marcadores.add(new Marker("10.023333333333333","-84.81083333333333","A"));
-        marcadores.add(new Marker("10.117222222222223","-84.82777777777777","B"));
-        marcadores.add(new Marker("9.170833333333333","-83.74583333333334","C"));
-        marcadores.add(new Marker("9.689444444444444","-85.10722222222222","D"));
-       marcadores.add(new Marker("8.627500000000001","-83.15611111111112","E"));
+        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
+        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
+//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
+//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
+//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
         //arriba parametros
         
         
@@ -177,6 +181,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
         String m = "https://maps.googleapis.com/maps/api/staticmap"+center+zoom+"&size=1029x550&scale=4";
         m  += markers + key;
+        IAgregable a = new Mapa();
+        System.out.println(a.getLink());
         try {
         URL url = new URL(m);
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package MapaDecorator;
 
 /**
  *
@@ -11,14 +11,18 @@ package Vista;
  */
 public class Marker {
     
+    private static int count = 0;
     private String lat;
     private String lon;
-    private String label;
+    private char label;
+    private int cantidad;
 
-    public Marker(String lat, String lon, String label) {
+    public Marker(String lat, String lon,int cantidad) {
         this.lat = lat;
         this.lon = lon;
-        this.label = label;
+        this.label = (char) (count + 'A');
+        this.cantidad = cantidad;
+        count++;
     }
 
     public String getLat() {
@@ -37,17 +41,23 @@ public class Marker {
         this.lon = lon;
     }
 
-    
-    
-    
+    public int getCantidad() {
+        return cantidad;
+    }
 
-    public String getLabel() {
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public char getLabel() {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(char label) {
         this.label = label;
     }
+
+    
 
     public String getDir() {
         return lat + "," + lon;
