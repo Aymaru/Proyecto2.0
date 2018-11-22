@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ChainResponsability;
+package GraficaChainResponsability;
 
+import Controlador.TipoIdentificador;
+import java.util.ArrayList;
 import org.jfree.chart.JFreeChart;
 
 /**
@@ -26,8 +28,8 @@ public class HandlerEQ implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, String tipo, String[] indicadores) {
-        if (tipo.equals("Edad Quiquenal")){
+    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
+        if (tipo == TipoIdentificador.EDAD_QUINQUENAL){
             // Se empieza a generar la grafica
             
         }else{

@@ -63,6 +63,14 @@ public class Controlador {
         this.dtoInterfaz = dao.getDistritos(dto);
         return this.dtoInterfaz;
     }
+    
+    public DTOConsulta getGrafica(DTOConsulta dto){
+        //VER LO DEL DAO
+        GestorChart gestorGrafico = new GestorChart();
+        return gestorGrafico.generarGrafica(dto);
+    }
+    
+    
     //Getters y Setters
 
     public DAODB getDao() {

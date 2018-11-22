@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package ChainResponsability;
+package GraficaChainResponsability;
 
-import org.jfree.chart.JFreeChart;
+import Controlador.TipoIdentificador;
+import java.util.ArrayList;
 
 
 public class HandlerTL implements IHandler{
@@ -23,7 +19,7 @@ public class HandlerTL implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, String tipo, String[] indicadores) {
+    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
         //Setteado de precesores
         HandlerS hS = new HandlerS();
         this.setNuevoHandler(hS);
@@ -32,8 +28,9 @@ public class HandlerTL implements IHandler{
         HandlerEQ hEQ = new HandlerEQ();
         hRA.setNuevoHandler(hEQ);
         
-        if (tipo.equals("Tipo Lesion")){
+        if (tipo == TipoIdentificador.TIPO_LESION){
             // Se empieza a generar la grafica
+            
         }else{
             nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
         }      

@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ChainResponsability;
+package GraficaChainResponsability;
+
+import Controlador.TipoIdentificador;
+import java.util.ArrayList;
 
 
 /**
  *
  * @author Sebastian
  */
-public class HandlerRA implements IHandler{
+public class HandlerS implements IHandler{
     
     private IHandler nextHandler;
 
@@ -25,15 +28,14 @@ public class HandlerRA implements IHandler{
     }
 
     @Override
-    public void generarChart(String ano1, String ano2, String tipo, String[] indicadores) {
-        if (tipo.equals("Tipo de Afectado")){
-            
+    public void generarChart(String ano1, String ano2, TipoIdentificador tipo, ArrayList indicadores) {
+        if (tipo == TipoIdentificador.SEXO){
+            // Se empieza a generar la grafica
             
         }else{
             nextHandler.generarChart(ano1, ano2, tipo, indicadores); // siguiente
         } 
         
     }
-   
     
 }

@@ -8,6 +8,7 @@ package Controlador;
 import MapaDecorator.TipoVista;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import org.jfree.chart.JFreeChart;
 
 /**
  *
@@ -29,10 +30,8 @@ public class DTOConsulta {
     String rol_afectado;
     String sexo;
     String edad_quinquenal;
-    ArrayList<String> sexos;
-    ArrayList<String> rolAfectados;
-    ArrayList<String> tipoLesiones;
-    ArrayList<String> edadQuinquenales;
+    ArrayList<String> indicadores;
+    JFreeChart grafica;
 
     //Constructor
     public DTOConsulta() {
@@ -40,6 +39,14 @@ public class DTOConsulta {
 
     //Getters y Setters
 
+    public ArrayList<String> getIndicadores() {
+        return indicadores;
+    }
+
+    public void setIndicadores(ArrayList<String> indicadores) {
+        this.indicadores = indicadores;
+    }
+    
     public ResultSet getRs() {
         return rs;
     }
@@ -62,38 +69,6 @@ public class DTOConsulta {
 
     public void setAño_fin(String año_fin) {
         this.año_fin = año_fin;
-    }
-
-      public ArrayList<String> getSexos() {
-        return sexos;
-    }
-
-    public void setSexos(ArrayList<String> sexos) {
-        this.sexos = sexos;
-    }
-
-    public ArrayList<String> getRolAfectados() {
-        return rolAfectados;
-    }
-
-    public void setRolAfectados(ArrayList<String> rolAfectados) {
-        this.rolAfectados = rolAfectados;
-    }
-
-    public ArrayList<String> getTipoLesiones() {
-        return tipoLesiones;
-    }
-
-    public void setTipoLesiones(ArrayList<String> tipoLesiones) {
-        this.tipoLesiones = tipoLesiones;
-    }
-
-    public ArrayList<String> getEdadQuinquenales() {
-        return edadQuinquenales;
-    }
-
-    public void setEdadQuinquenales(ArrayList<String> edadQuinquenales) {
-        this.edadQuinquenales = edadQuinquenales;
     }
 
     public TipoVista getTipoVista() {
@@ -175,10 +150,13 @@ public class DTOConsulta {
     public void setEdad_quinquenal(String edad_quinquenal) {
         this.edad_quinquenal = edad_quinquenal;
     }
-    
-  
 
-    
-    
-    
+    public JFreeChart getGrafica() {
+        return grafica;
+    }
+
+    public void setGrafica(JFreeChart grafica) {
+        this.grafica = grafica;
+    }
+     
 }
