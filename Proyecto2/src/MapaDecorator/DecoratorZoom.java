@@ -20,7 +20,7 @@ public class DecoratorZoom extends MapaDecorator{
 
     @Override
     public String getLink() {
-        String Nzoom = "";
+        String Nzoom = "8";
         if (getData().isKeepZoom()){
             Nzoom = "8";
         }

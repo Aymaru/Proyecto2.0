@@ -46,19 +46,19 @@ public abstract class DataMapa{
 
     protected abstract TipoVista getVista();
 
-    protected void setVista(TipoVista vista) {
+    public void setVista(TipoVista vista) {
         this.vista = vista;
     }
 
     protected abstract boolean isKeepZoom();
 
-    protected void setKeepZoom(boolean keepZoom) {
+    public void setKeepZoom(boolean keepZoom) {
         this.keepZoom = keepZoom;
     }
 
     protected abstract ArrayList<Marker> getMarcadores();
 
-    protected void setMarcadores(ArrayList<Marker> marcadores) {
+    public void setMarcadores(ArrayList<Marker> marcadores) {
         this.marcadores = marcadores;
     }
 

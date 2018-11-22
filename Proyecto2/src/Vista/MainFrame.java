@@ -59,11 +59,16 @@ public class MainFrame extends javax.swing.JFrame {
     DefaultListModel modRolAfectado;
     DefaultListModel modEdadQuinquenal;
     
+    //Variable del mapa de la primera consulta
+    DataMapa MapaConsulta1 = new Mapa(null,false,null);
+    
+    
+    
     
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
         this.setLocation(40, 40); 
-        descargarMapa();
+        descargarMapa(TipoVista.PROVINCIA,false,new ArrayList<>());
         String dir = System.getProperty("user.dir")+"\\mapa.jpg";
         ImagePanel panel = new ImagePanel(new ImageIcon(dir).getImage());
         JInternalFrame frame = this.ff;
@@ -139,30 +144,33 @@ public class MainFrame extends javax.swing.JFrame {
             this.cbEdadQuinquenal_Dashboard.addItem(rs.getString("EdadQuinquenal").trim());
             modEdadQuinquenal.addElement(rs.getString("EdadQuinquenal").trim());
         }
+        
+        
+        
     }
     
-    private static void descargarMapa(){
-        //True si es puntarenas
-        boolean  keepZoom = true;
-        TipoVista vista = TipoVista.CANTON;
-        ArrayList<Marker> marcadores = new ArrayList<>();
-        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-        //Estructura para Cambiar
-        DataMapa a = new Mapa(vista,keepZoom,marcadores);
-        a.addMarker(new Marker("9.170833333333333","-83.74583333333334",0));
-        a.addMarker(new Marker("10.117222222222223","-84.82777777777777",0));
-        a.addMarker(new Marker("9.689444444444444","-85.10722222222222",0));
-        a.addMarker(new Marker("8.627500000000001","-83.15611111111112",0));
-        a = new DecoratorMarkers(a);
-        a = new DecoratorCenter(a);
-        a = new DecoratorZoom(a);
+    private void descargarMapa(TipoVista vista,boolean keepZoom,ArrayList<Marker> marcadores){
+        
+//        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
+//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
+//        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
+//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
+//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
+       
+        
+        MapaConsulta1.setMarcadores(marcadores);
+        MapaConsulta1.setKeepZoom(keepZoom);
+        MapaConsulta1.setVista(vista);
+        MapaConsulta1 = new DecoratorMarkers(MapaConsulta1);
+        MapaConsulta1 = new DecoratorCenter(MapaConsulta1);
+        MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
         
         
-        
+        System.out.println(MapaConsulta1.getLink());
         
         
         try {
-        URL url = new URL(a.getLink());
+        URL url = new URL(MapaConsulta1.getLink());
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
         httpcon.addRequestProperty("User-Agent", ""); 
         BufferedImage image = ImageIO.read(httpcon.getInputStream());
