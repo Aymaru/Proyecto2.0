@@ -72,6 +72,17 @@ public class MainFrame extends javax.swing.JFrame {
         this.dtoConsulta = new DTOConsulta();
         
         
+        
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(new File("MAPA_PROVINCIAS.jpg"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       Image dimg = img.getScaledInstance(this.lblMapaProvincias.getWidth(), this.lblMapaProvincias.getHeight(),
+        Image.SCALE_SMOOTH);
+       this.lblMapaProvincias.setIcon(new ImageIcon(dimg));
+        
         descargarMapa(TipoVista.PROVINCIA,false,false,new ArrayList<>());
         inicializarDatos();
         
@@ -249,7 +260,16 @@ public class MainFrame extends javax.swing.JFrame {
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
-        PanelPersonal = new javax.swing.JPanel();
+        lblMapaProvincias = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        taEstadisticasLibre = new javax.swing.JTextArea();
+        lblAlajuela = new javax.swing.JLabel();
+        lblCartago = new javax.swing.JLabel();
+        lblHeredia = new javax.swing.JLabel();
+        lblSanJose = new javax.swing.JLabel();
+        lblGuanacaste = new javax.swing.JLabel();
+        lblPuntarenas = new javax.swing.JLabel();
+        lblLimon = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -766,6 +786,11 @@ public class MainFrame extends javax.swing.JFrame {
         panelPrincipal.addTab("Indicador de Comportamiento", panelIndicador);
 
         panelLibre.setBackground(new java.awt.Color(51, 51, 51));
+        panelLibre.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                panelLibreMouseMoved(evt);
+            }
+        });
 
         btnProcesarDashboard4.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard4.setText("CERRAR SISTEMA");
@@ -775,39 +800,138 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        PanelPersonal.setBackground(new java.awt.Color(102, 102, 102));
+        lblMapaProvincias.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblMapaProvinciasMouseMoved(evt);
+            }
+        });
 
-        javax.swing.GroupLayout PanelPersonalLayout = new javax.swing.GroupLayout(PanelPersonal);
-        PanelPersonal.setLayout(PanelPersonalLayout);
-        PanelPersonalLayout.setHorizontalGroup(
-            PanelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 964, Short.MAX_VALUE)
-        );
-        PanelPersonalLayout.setVerticalGroup(
-            PanelPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
-        );
+        taEstadisticasLibre.setEditable(false);
+        taEstadisticasLibre.setColumns(20);
+        taEstadisticasLibre.setLineWrap(true);
+        taEstadisticasLibre.setRows(5);
+        jScrollPane9.setViewportView(taEstadisticasLibre);
+
+        lblAlajuela.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblAlajuela.setForeground(new java.awt.Color(255, 255, 255));
+        lblAlajuela.setText("ALAJUELA");
+        lblAlajuela.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblAlajuelaMouseMoved(evt);
+            }
+        });
+
+        lblCartago.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblCartago.setForeground(new java.awt.Color(255, 255, 255));
+        lblCartago.setText("CARTAGO");
+        lblCartago.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblCartagoMouseMoved(evt);
+            }
+        });
+
+        lblHeredia.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblHeredia.setForeground(new java.awt.Color(255, 255, 255));
+        lblHeredia.setText("HEREDIA");
+        lblHeredia.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblHerediaMouseMoved(evt);
+            }
+        });
+
+        lblSanJose.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblSanJose.setForeground(new java.awt.Color(255, 255, 255));
+        lblSanJose.setText("SAN JOSE");
+        lblSanJose.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblSanJoseMouseMoved(evt);
+            }
+        });
+
+        lblGuanacaste.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblGuanacaste.setForeground(new java.awt.Color(255, 255, 255));
+        lblGuanacaste.setText("GUANACASTE");
+        lblGuanacaste.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblGuanacasteMouseMoved(evt);
+            }
+        });
+
+        lblPuntarenas.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblPuntarenas.setForeground(new java.awt.Color(255, 255, 255));
+        lblPuntarenas.setText("PUNTARENAS");
+        lblPuntarenas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblPuntarenasMouseMoved(evt);
+            }
+        });
+
+        lblLimon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblLimon.setForeground(new java.awt.Color(255, 255, 255));
+        lblLimon.setText("LIMON");
+        lblLimon.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                lblLimonMouseMoved(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLibreLayout = new javax.swing.GroupLayout(panelLibre);
         panelLibre.setLayout(panelLibreLayout);
         panelLibreLayout.setHorizontalGroup(
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLibreLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblAlajuela)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCartago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblHeredia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSanJose)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblGuanacaste)
+                        .addGap(30, 30, 30)
+                        .addComponent(lblLimon)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblPuntarenas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addComponent(lblMapaProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane9)
+                    .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        panelLibreLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAlajuela, lblCartago, lblGuanacaste, lblHeredia, lblLimon, lblPuntarenas, lblSanJose});
+
         panelLibreLayout.setVerticalGroup(
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLibreLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProcesarDashboard4)
-                    .addComponent(PanelPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLibreLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9)
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addComponent(lblMapaProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAlajuela)
+                            .addComponent(lblCartago)
+                            .addComponent(lblHeredia)
+                            .addComponent(lblSanJose)
+                            .addComponent(lblGuanacaste)
+                            .addComponent(lblPuntarenas)
+                            .addComponent(lblLimon))
+                        .addGap(0, 34, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(btnProcesarDashboard4)
+                .addGap(427, 427, 427))
         );
+
+        panelLibreLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAlajuela, lblCartago, lblGuanacaste, lblHeredia, lblLimon, lblPuntarenas, lblSanJose});
 
         panelPrincipal.addTab("Libre", panelLibre);
 
@@ -1203,13 +1327,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.taLeyenda.setText(this.taLeyenda.getText()+"\n\nTotal: "+sumatotal);
         
         //Final de consulta
-        
-        
-//        marcadores.add(new Marker("10.023333333333333","-84.81083333333333",0));
-//        marcadores.add(new Marker("10.117222222222223","-84.82777777777777",0));
-//        marcadores.add(new Marker("9.170833333333333","-83.74583333333334",0));
-//        marcadores.add(new Marker("9.689444444444444","-85.10722222222222",0));
-//        marcadores.add(new Marker("8.627500000000001","-83.15611111111112",0));
+       
         
         
         
@@ -1236,6 +1354,42 @@ public class MainFrame extends javax.swing.JFrame {
         this.taLeyenda.setText("");
         this.lblCargando.setText("Limpio !");
     }//GEN-LAST:event_btnProcesarDashboard1ActionPerformed
+
+    private void lblAlajuelaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlajuelaMouseMoved
+        this.taEstadisticasLibre.setText("Alajuela");
+    }//GEN-LAST:event_lblAlajuelaMouseMoved
+
+    private void panelLibreMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLibreMouseMoved
+        this.taEstadisticasLibre.setText("");
+    }//GEN-LAST:event_panelLibreMouseMoved
+
+    private void lblMapaProvinciasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaProvinciasMouseMoved
+        this.taEstadisticasLibre.setText("Coloquese encima de alguna provincia para ver sus estadisticas.");
+    }//GEN-LAST:event_lblMapaProvinciasMouseMoved
+
+    private void lblCartagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCartagoMouseMoved
+        this.taEstadisticasLibre.setText("Cartago");
+    }//GEN-LAST:event_lblCartagoMouseMoved
+
+    private void lblHerediaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHerediaMouseMoved
+        this.taEstadisticasLibre.setText("Heredia");
+    }//GEN-LAST:event_lblHerediaMouseMoved
+
+    private void lblSanJoseMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanJoseMouseMoved
+        this.taEstadisticasLibre.setText("San José");
+    }//GEN-LAST:event_lblSanJoseMouseMoved
+
+    private void lblGuanacasteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuanacasteMouseMoved
+        this.taEstadisticasLibre.setText("Guanacaste");
+    }//GEN-LAST:event_lblGuanacasteMouseMoved
+
+    private void lblLimonMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimonMouseMoved
+        this.taEstadisticasLibre.setText("Limón");
+    }//GEN-LAST:event_lblLimonMouseMoved
+
+    private void lblPuntarenasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPuntarenasMouseMoved
+        this.taEstadisticasLibre.setText("Puntarenas");
+    }//GEN-LAST:event_lblPuntarenasMouseMoved
 
     /**
      * @param args the command line arguments
@@ -1279,7 +1433,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelPersonal;
     private javax.swing.JButton btnGenerarGrafica;
     private javax.swing.JButton btnGenerarGrafica1;
     private javax.swing.JButton btnProcesarDashboard;
@@ -1322,8 +1475,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel labelMapa;
+    private javax.swing.JLabel lblAlajuela;
     private javax.swing.JLabel lblCargando;
+    private javax.swing.JLabel lblCartago;
+    private javax.swing.JLabel lblGuanacaste;
+    private javax.swing.JLabel lblHeredia;
+    private javax.swing.JLabel lblLimon;
+    private javax.swing.JLabel lblMapaProvincias;
+    private javax.swing.JLabel lblPuntarenas;
+    private javax.swing.JLabel lblSanJose;
     private javax.swing.JList<String> listCantones;
     private javax.swing.JList<String> listDistritos;
     private javax.swing.JList<String> listEdadQuinquenal_Grafica;
@@ -1342,6 +1504,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbSexo_Indicador;
     private javax.swing.JRadioButton rbTipoAfectado_Identificador;
     private javax.swing.JRadioButton rbTipoLesion_Indicador;
+    private javax.swing.JTextArea taEstadisticasLibre;
     private javax.swing.JTextArea taLeyenda;
     // End of variables declaration//GEN-END:variables
 }
