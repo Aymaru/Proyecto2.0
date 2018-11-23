@@ -255,7 +255,6 @@ public class MainFrame extends javax.swing.JFrame {
         cbAñosConsulta2 = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         btnGenerarGrafica = new javax.swing.JButton();
-        btnProcesarDashboard3 = new javax.swing.JButton();
         btnGenerarGrafica1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -266,6 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
         listTipoLesion_Grafica = new javax.swing.JList<>();
         jScrollPane7 = new javax.swing.JScrollPane();
         listEdadQuinquenal_Grafica = new javax.swing.JList<>();
+        btnProcesarDashboard3 = new javax.swing.JButton();
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
@@ -659,14 +659,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnProcesarDashboard3.setBackground(new java.awt.Color(0, 153, 204));
-        btnProcesarDashboard3.setText("CERRAR SISTEMA");
-        btnProcesarDashboard3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProcesarDashboard3ActionPerformed(evt);
-            }
-        });
-
         btnGenerarGrafica1.setBackground(new java.awt.Color(0, 153, 204));
         btnGenerarGrafica1.setText("GENERAR GRÁFICA");
         btnGenerarGrafica1.setActionCommand("");
@@ -716,6 +708,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(listEdadQuinquenal_Grafica);
 
+        btnProcesarDashboard3.setBackground(new java.awt.Color(0, 153, 204));
+        btnProcesarDashboard3.setText("CERRAR SISTEMA");
+        btnProcesarDashboard3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboard3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelBotones_IndicadorLayout = new javax.swing.GroupLayout(panelBotones_Indicador);
         panelBotones_Indicador.setLayout(panelBotones_IndicadorLayout);
         panelBotones_IndicadorLayout.setHorizontalGroup(
@@ -723,17 +723,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
-                        .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGenerarGrafica1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnProcesarDashboard3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGenerarGrafica, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbAñosConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(rbSexo_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rbTipoLesion_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -741,7 +730,18 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addComponent(rbEdadQuinquenal_Indicador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane7))
+                    .addComponent(jScrollPane7)
+                    .addGroup(panelBotones_IndicadorLayout.createSequentialGroup()
+                        .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnProcesarDashboard3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGenerarGrafica1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGenerarGrafica, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAñosConsulta2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelBotones_IndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelBotones_IndicadorLayout.setVerticalGroup(
@@ -771,7 +771,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(rbEdadQuinquenal_Indicador)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnGenerarGrafica1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGenerarGrafica)
@@ -791,7 +791,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelGraficoLayout.setVerticalGroup(
             panelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 609, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelIndicadorLayout = new javax.swing.GroupLayout(panelIndicador);
@@ -808,11 +808,13 @@ public class MainFrame extends javax.swing.JFrame {
         panelIndicadorLayout.setVerticalGroup(
             panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelIndicadorLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(17, 17, 17)
                 .addGroup(panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(492, Short.MAX_VALUE))
+                    .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelIndicadorLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Indicador de Comportamiento", panelIndicador);

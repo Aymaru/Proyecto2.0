@@ -61,7 +61,7 @@
           <Color blue="33" green="33" red="33" type="rgb"/>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-          <Color id="Default Cursor"/>
+          <Color id="Cursor Por defecto"/>
         </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1297, 708]"/>
@@ -755,12 +755,15 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="panelGrafico" min="-2" pref="583" max="-2" attributes="0"/>
-                              <Component id="panelBotones_Indicador" min="-2" pref="677" max="-2" attributes="0"/>
+                              <Component id="panelBotones_Indicador" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                                  <Component id="panelGrafico" min="-2" pref="609" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="492" max="32767" attributes="0"/>
+                          <EmptySpace pref="485" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -776,13 +779,21 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="rbSexo_Indicador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="rbTipoLesion_Indicador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane5" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="rbTipoAfectado_Identificador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="rbEdadQuinquenal_Indicador" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane6" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="btnGenerarGrafica1" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                                           <Component id="btnProcesarDashboard3" min="-2" pref="228" max="-2" attributes="0"/>
+                                          <Component id="btnGenerarGrafica1" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
                                           <Component id="btnGenerarGrafica" min="-2" pref="231" max="-2" attributes="0"/>
                                           <Component id="cbAñosConsulta2" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
                                           <Component id="jLabel10" alignment="0" min="-2" pref="244" max="-2" attributes="0"/>
@@ -793,14 +804,6 @@
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="rbSexo_Indicador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="rbTipoLesion_Indicador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane5" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="rbTipoAfectado_Identificador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="rbEdadQuinquenal_Indicador" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane6" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -833,13 +836,13 @@
                               <Component id="rbEdadQuinquenal_Indicador" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" min="-2" pref="72" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="18" max="32767" attributes="0"/>
                               <Component id="btnGenerarGrafica1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnGenerarGrafica" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnProcesarDashboard3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -971,17 +974,6 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarGraficaActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="btnProcesarDashboard3">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="cc" green="99" red="0" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="CERRAR SISTEMA"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesarDashboard3ActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnGenerarGrafica1">
@@ -1129,6 +1121,17 @@
                         </Component>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JButton" name="btnProcesarDashboard3">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="cc" green="99" red="0" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="CERRAR SISTEMA"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcesarDashboard3ActionPerformed"/>
+                      </Events>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelGrafico">
@@ -1149,7 +1152,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="583" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="609" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                   </Layout>
