@@ -171,6 +171,23 @@ public class DAODB {
         return dto;
     }
     
+    public DTOConsulta consultaLibre(DTOConsulta dto){
+        String query = "{call consultaLibre(?,?,?)}";
+        try {            
+            CallableStatement cs = null;
+            
+            cs = conn.prepareCall(query);
+            cs.setString("anno_ini", dto.getAño_ini());
+            cs.setString("anno_fin", dto.getAño_fin());
+            cs.setString("provincia", dto.getProvincia());
+            rs = cs.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAODB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dto.setRs(rs);
+        return dto;
+    }
+    
     public void close() {
         try {
             if (rs != null) {
