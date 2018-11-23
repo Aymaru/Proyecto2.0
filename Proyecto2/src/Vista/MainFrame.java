@@ -890,32 +890,37 @@ public class MainFrame extends javax.swing.JFrame {
         panelLibreLayout.setHorizontalGroup(
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLibreLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(lblAlajuela)
-                .addGap(18, 18, 18)
-                .addComponent(lblCartago)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblHeredia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblSanJose)
-                .addGap(18, 18, 18)
-                .addComponent(lblGuanacaste)
-                .addGap(30, 30, 30)
-                .addComponent(lblLimon)
-                .addGap(18, 18, 18)
-                .addComponent(lblPuntarenas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(panelLibreLayout.createSequentialGroup()
-                .addComponent(lblMapaProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblAlajuela)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblCartago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblHeredia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSanJose)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblGuanacaste)
+                        .addGap(30, 30, 30)
+                        .addComponent(lblLimon)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblPuntarenas))
+                    .addComponent(lblMapaProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbAñosLibre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
-                .addGap(156, 156, 156))
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))
+                    .addGroup(panelLibreLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelLibreLayout.createSequentialGroup()
+                                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbAñosLibre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel16))
+                                .addContainerGap())))))
         );
 
         panelLibreLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAlajuela, lblCartago, lblGuanacaste, lblHeredia, lblLimon, lblPuntarenas, lblSanJose});
@@ -1378,7 +1383,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void lblAlajuelaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlajuelaMouseMoved
         String provincia = "Alajuela";
-        
+        this.taEstadisticasLibre.setText("");
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -1388,9 +1393,23 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        
-        this.taEstadisticasLibre.setText("Alajuela");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblAlajuelaMouseMoved
 
     private void panelLibreMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLibreMouseMoved
@@ -1398,11 +1417,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_panelLibreMouseMoved
 
     private void lblMapaProvinciasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaProvinciasMouseMoved
-        this.taEstadisticasLibre.setText("Coloquese encima de alguna provincia para ver sus estadisticas.");
+        this.taEstadisticasLibre.setText("Coloquese encima del LABEL correspondiente a alguna provincia para ver sus estadisticas para los tipos de lesion\nLos labels estan ubicados debajo del mapa.");
     }//GEN-LAST:event_lblMapaProvinciasMouseMoved
 
     private void lblCartagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCartagoMouseMoved
-        
+        this.taEstadisticasLibre.setText("");
         String provincia = "Cartago";
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
@@ -1413,13 +1432,27 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        
-        this.taEstadisticasLibre.setText("Cartago");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblCartagoMouseMoved
 
     private void lblHerediaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHerediaMouseMoved
-        
+        this.taEstadisticasLibre.setText("");
         String provincia = "Heredia";
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
@@ -1430,12 +1463,28 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        this.taEstadisticasLibre.setText("Heredia");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblHerediaMouseMoved
 
     private void lblSanJoseMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanJoseMouseMoved
         String provincia = "San José";
+        this.taEstadisticasLibre.setText("");
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -1445,12 +1494,28 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        this.taEstadisticasLibre.setText("San José");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblSanJoseMouseMoved
 
     private void lblGuanacasteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuanacasteMouseMoved
         String provincia = "Guanacaste";
+        this.taEstadisticasLibre.setText("");
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -1460,12 +1525,28 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        this.taEstadisticasLibre.setText("Guanacaste");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblGuanacasteMouseMoved
 
     private void lblLimonMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimonMouseMoved
         String provincia = "Limón";
+        this.taEstadisticasLibre.setText("");
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -1475,12 +1556,28 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
+        dtoConsulta.setProvincia(provincia);
         
-        this.taEstadisticasLibre.setText("Limón");
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblLimonMouseMoved
 
     private void lblPuntarenasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPuntarenasMouseMoved
         String provincia = "Puntarenas";
+        this.taEstadisticasLibre.setText("");
         String anos = (String)cbAñosLibre.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -1490,7 +1587,24 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_ini(anos);
             dtoConsulta.setAño_fin(anos);
         }
-        this.taEstadisticasLibre.setText("Puntarenas");
+        dtoConsulta.setProvincia(provincia);
+        
+        
+        dtoConsulta = controller.consultaLibre(dtoConsulta);
+        int sumatotal = 0;
+        ResultSet rs = dtoConsulta.getRs();
+        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        try {
+            while(rs.next()){
+                String desc = rs.getString("Lesion");
+                int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                sumatotal += cantidad;
+                this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+desc+"\t"+cantidad+"\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.taEstadisticasLibre.setText(this.taEstadisticasLibre.getText()+"\n\nTotal\t"+sumatotal);
     }//GEN-LAST:event_lblPuntarenasMouseMoved
 
     /**

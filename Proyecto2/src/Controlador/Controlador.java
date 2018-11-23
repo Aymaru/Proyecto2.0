@@ -36,6 +36,11 @@ public class Controlador {
     
     //Consultas
     
+    public DTOConsulta consultaLibre(DTOConsulta dto){
+        this.dtoConsulta = dao.consultaLibre(dto);
+        return this.dtoConsulta;
+    }
+    
     public DTOConsulta consultaDashboard(DTOConsulta dto){
         this.dtoConsulta = dao.consultaDashboard(dto);
         return this.dtoConsulta;
