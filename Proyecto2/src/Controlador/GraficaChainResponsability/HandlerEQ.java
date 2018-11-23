@@ -7,7 +7,7 @@ package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
-import Controlador.TipoIdentificador;
+import Modelo.TipoIdentificador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

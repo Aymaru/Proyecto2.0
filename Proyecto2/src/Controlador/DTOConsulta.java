@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.TipoIdentificador;
 import Modelo.TipoVista;
 import java.sql.ResultSet;
 import java.util.ArrayList;

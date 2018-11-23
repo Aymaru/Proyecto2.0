@@ -10,7 +10,7 @@ import Modelo.TipoVista;
 import Modelo.Marker;
 import Controlador.DTOConsulta;
 import Controlador.DTOInterfaz;
-import Controlador.TipoIdentificador;
+import Modelo.TipoIdentificador;
 import Controlador.MapaDecorator.DataMapa;
 import Controlador.MapaDecorator.DecoratorCenter;
 import Controlador.MapaDecorator.Mapa;
@@ -1084,8 +1084,9 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_fin(anos);
         }
         
-        dtoInterfaz_Entrada = controller.getDao().getTiposLesion(dtoInterfaz_Salida);
+        dtoInterfaz_Entrada = controller.getDao().getEdadesQuinquenal(dtoInterfaz_Salida);
         ResultSet rs = dtoInterfaz_Entrada.getRs();
+        
         //Set info de los indicadores
         ArrayList info = new ArrayList();
         if (rbSexo_Indicador.isSelected()){
@@ -1119,6 +1120,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
             
         }
+        dtoInterfaz_Entrada = controller.getDao().getTiposLesion(dtoInterfaz_Salida);
+        rs = dtoInterfaz_Entrada.getRs();
         
         if (rbTipoLesion_Indicador.isSelected()){
             dtoConsulta.setTipoIdentificador(TipoIdentificador.TIPO_LESION);
@@ -1137,6 +1140,10 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         }
+        
+        dtoInterfaz_Entrada = controller.getDao().getRolesAfectado(dtoInterfaz_Salida);
+        rs = dtoInterfaz_Entrada.getRs();
+        
         if (rbTipoAfectado_Identificador.isSelected()){
             dtoConsulta.setTipoIdentificador(TipoIdentificador.ROL_AFECTADO);
             if (listRolAfectado_Grafica.isSelectionEmpty()){
