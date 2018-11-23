@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MapaDecorator;
+package Controlador.MapaDecorator;
 
+import Modelo.Marker;
+import Modelo.TipoVista;
 import java.util.ArrayList;
 
 /**
@@ -71,8 +73,14 @@ public class DecoratorCenter extends MapaDecorator{
     
 
     @Override
-    protected boolean isKeepZoom() {
-        return getData().isKeepZoom();
+    protected boolean isKeepZoomD() {
+        return getData().isKeepZoomD();
+    }
+
+
+    @Override
+    protected boolean isKeepZoomC() {
+        return getData().isKeepZoomC();
     }
 
     @Override

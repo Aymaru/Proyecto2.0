@@ -5,7 +5,7 @@
  */
 package Controlador;
 
-import MapaDecorator.TipoVista;
+import Modelo.TipoVista;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import org.jfree.chart.JFreeChart;

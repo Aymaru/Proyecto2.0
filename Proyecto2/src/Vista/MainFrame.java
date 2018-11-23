@@ -6,16 +6,16 @@
 package Vista;
 
 import Controlador.Controlador;
-import MapaDecorator.TipoVista;
-import MapaDecorator.Marker;
+import Modelo.TipoVista;
+import Modelo.Marker;
 import Controlador.DTOConsulta;
 import Controlador.DTOInterfaz;
 import Controlador.TipoIdentificador;
-import MapaDecorator.DataMapa;
-import MapaDecorator.DecoratorCenter;
-import MapaDecorator.Mapa;
-import MapaDecorator.DecoratorMarkers;
-import MapaDecorator.DecoratorZoom;
+import Controlador.MapaDecorator.DataMapa;
+import Controlador.MapaDecorator.DecoratorCenter;
+import Controlador.MapaDecorator.Mapa;
+import Controlador.MapaDecorator.DecoratorMarkers;
+import Controlador.MapaDecorator.DecoratorZoom;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -72,6 +72,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.dtoInterfaz_Salida = new DTOInterfaz();
         this.dtoConsulta = new DTOConsulta();
         
+        
+        descargarMapa(TipoVista.PROVINCIA,false,false,new ArrayList<>());
         inicializarDatos();
         
         
@@ -141,17 +143,18 @@ public class MainFrame extends javax.swing.JFrame {
         
     }
     
-    private void descargarMapa(TipoVista vista,boolean keepZoom,ArrayList<Marker> marcadores){
+    private void descargarMapa(TipoVista vista,boolean keepZoomC,boolean keepZoomD,ArrayList<Marker> marcadores){
         
-        DataMapa MapaConsulta1 = new Mapa(vista,keepZoom,marcadores);
-        MapaConsulta1 = new DecoratorMarkers(MapaConsulta1);
-        MapaConsulta1 = new DecoratorCenter(MapaConsulta1);
-        MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
+        this.dtoInterfaz_Salida.setVista(vista);
+        this.dtoInterfaz_Salida.setKeepZoomC(keepZoomC);
+        this.dtoInterfaz_Salida.setKeepZoomD(keepZoomD);
+        this.dtoInterfaz_Salida.setMarcadores(marcadores);
+        dtoInterfaz_Entrada = controller.getMapa(dtoInterfaz_Salida);
         
         
         
         try {
-        URL url = new URL(MapaConsulta1.getLink());
+        URL url = new URL(dtoInterfaz_Entrada.getMapa().getLink());
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
         httpcon.addRequestProperty("User-Agent", ""); 
         BufferedImage image = ImageIO.read(httpcon.getInputStream());
@@ -197,28 +200,32 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listProvincias = new javax.swing.JList<>();
-        cbAños = new javax.swing.JComboBox<>();
+        listProvincias = new javax.swing.JList<String>();
+        cbAños = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listCantones = new javax.swing.JList<>();
+        listCantones = new javax.swing.JList<String>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listDistritos = new javax.swing.JList<>();
-        cbSexo_Dashboard = new javax.swing.JComboBox<>();
+        listDistritos = new javax.swing.JList<String>();
+        cbSexo_Dashboard = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoAfectado_Dashboard = new javax.swing.JComboBox<String>();
         jLabel8 = new javax.swing.JLabel();
-        cbTipoLesion_Dashboard = new javax.swing.JComboBox<>();
+        cbTipoLesion_Dashboard = new javax.swing.JComboBox<String>();
         jLabel9 = new javax.swing.JLabel();
-        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<>();
+        cbEdadQuinquenal_Dashboard = new javax.swing.JComboBox<String>();
         btnProcesarDashboard1 = new javax.swing.JButton();
         btnProcesarDashboard = new javax.swing.JButton();
         btnProcesarDashboard2 = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        taLeyenda = new javax.swing.JTextArea();
         labelMapa = new javax.swing.JLabel();
+        lblCargando = new javax.swing.JLabel();
         panelIndicador = new javax.swing.JPanel();
         panelBotones_Indicador = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -226,20 +233,20 @@ public class MainFrame extends javax.swing.JFrame {
         rbTipoAfectado_Identificador = new javax.swing.JRadioButton();
         rbTipoLesion_Indicador = new javax.swing.JRadioButton();
         rbEdadQuinquenal_Indicador = new javax.swing.JRadioButton();
-        cbAñosConsulta2 = new javax.swing.JComboBox<>();
+        cbAñosConsulta2 = new javax.swing.JComboBox<String>();
         jLabel13 = new javax.swing.JLabel();
         btnGenerarGrafica = new javax.swing.JButton();
         btnProcesarDashboard3 = new javax.swing.JButton();
         btnGenerarGrafica1 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listRolAfectado_Grafica = new javax.swing.JList<>();
+        listRolAfectado_Grafica = new javax.swing.JList<String>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listSexo_Grafica = new javax.swing.JList<>();
+        listSexo_Grafica = new javax.swing.JList<String>();
         jScrollPane6 = new javax.swing.JScrollPane();
-        listTipoLesion_Grafica = new javax.swing.JList<>();
+        listTipoLesion_Grafica = new javax.swing.JList<String>();
         jScrollPane7 = new javax.swing.JScrollPane();
-        listEdadQuinquenal_Grafica = new javax.swing.JList<>();
+        listEdadQuinquenal_Grafica = new javax.swing.JList<String>();
         panelGrafico = new javax.swing.JPanel();
         panelLibre = new javax.swing.JPanel();
         btnProcesarDashboard4 = new javax.swing.JButton();
@@ -273,10 +280,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Canton(es)");
 
         listProvincias.setBackground(new java.awt.Color(102, 102, 102));
-        listProvincias.setModel(new javax.swing.AbstractListModel<String>() {
+        listProvincias.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listProvincias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -290,7 +297,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listProvincias);
 
-        cbAños.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAños.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosActionPerformed(evt);
@@ -310,10 +317,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Provincia(s)");
 
         listCantones.setBackground(new java.awt.Color(102, 102, 102));
-        listCantones.setModel(new javax.swing.AbstractListModel<String>() {
+        listCantones.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         listCantones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -323,14 +330,14 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listCantones);
 
         listDistritos.setBackground(new java.awt.Color(102, 102, 102));
-        listDistritos.setModel(new javax.swing.AbstractListModel<String>() {
+        listDistritos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane3.setViewportView(listDistritos);
 
-        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
+        cbSexo_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Hombre", "Mujer", "Desconocido" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -344,25 +351,35 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Tipo de Afectado");
 
-        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
+        cbTipoAfectado_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ciclista", "Conductor", "Dueño de Propiedad", "Motociclista", "Pasajero Bicicleta", "Pasajero Bus o MicroBus", "Pasajero Carro", "Pasajero Moto", "Peaton", "Otro" }));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Tipo de Lesión");
 
-        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
+        cbTipoLesion_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "Ileso", "Herido Leve ", "Herido Grave", "Muerte" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Edad Quinquenal");
 
-        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
+        cbEdadQuinquenal_Dashboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-", "De 0 a 4 años", "De 5 a 9 años", "De 10 a 14 años", "De 15 a 19 años", "De 20 a 24 años", "De 25 a 29 años", "De 30 a 34 años", "De 35 a 39 años", "De 40 a 44 años", "De 45 a 49 años", "De 50 a 54 años", "De 55 a 59 años", "De 60 a 64 años", "De 65 a 69 años", "De 70 a 74 años", "Mayor a 75 años", "Desconocida" }));
 
         btnProcesarDashboard1.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard1.setLabel("LIMPIAR CONSULTA");
+        btnProcesarDashboard1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcesarDashboard1ActionPerformed(evt);
+            }
+        });
 
         btnProcesarDashboard.setBackground(new java.awt.Color(0, 153, 204));
         btnProcesarDashboard.setText("GENERAR CONSULTA");
+        btnProcesarDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnProcesarDashboardMouseClicked(evt);
+            }
+        });
         btnProcesarDashboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProcesarDashboardActionPerformed(evt);
@@ -377,96 +394,109 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("LEYENDA");
+
+        taLeyenda.setEditable(false);
+        taLeyenda.setColumns(20);
+        taLeyenda.setRows(5);
+        jScrollPane8.setViewportView(taLeyenda);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane8)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(cbSexo_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbAños, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnProcesarDashboard1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProcesarDashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnProcesarDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(cbAños, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbSexo_Dashboard, javax.swing.GroupLayout.Alignment.LEADING, 0, 126, Short.MAX_VALUE))))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnProcesarDashboard2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnProcesarDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnProcesarDashboard1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(17, 17, 17)
-                .addComponent(cbAños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(22, 22, 22)
+                        .addComponent(cbAños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbSexo_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbTipoAfectado_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbTipoLesion_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbEdadQuinquenal_Dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel4)))
                 .addGap(18, 18, 18)
-                .addComponent(btnProcesarDashboard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnProcesarDashboard1)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btnProcesarDashboard)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnProcesarDashboard1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnProcesarDashboard2)))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnProcesarDashboard2)
-                .addGap(5, 5, 5))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        lblCargando.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout panelAdicionalLayout = new javax.swing.GroupLayout(panelAdicional);
         panelAdicional.setLayout(panelAdicionalLayout);
@@ -477,10 +507,12 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addGroup(panelAdicionalLayout.createSequentialGroup()
-                        .addComponent(labelMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 927, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCargando))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelAdicionalLayout.setVerticalGroup(
             panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -488,10 +520,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addGroup(panelAdicionalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdicionalLayout.createSequentialGroup()
+                        .addComponent(labelMapa, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCargando)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
@@ -562,7 +598,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+        cbAñosConsulta2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
         cbAñosConsulta2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbAñosConsulta2ActionPerformed(evt);
@@ -602,31 +638,31 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
         jLabel14.setText("Seleccione el rango de fechas:");
 
-        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listRolAfectado_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane4.setViewportView(listRolAfectado_Grafica);
 
-        listSexo_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listSexo_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Hombre", "Mujer", "Desconocido" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane5.setViewportView(listSexo_Grafica);
 
-        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listTipoLesion_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane6.setViewportView(listTipoLesion_Grafica);
 
-        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel<String>() {
+        listEdadQuinquenal_Grafica.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane7.setViewportView(listEdadQuinquenal_Grafica);
 
@@ -762,7 +798,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(PanelPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         panelLibreLayout.setVerticalGroup(
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -788,7 +824,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel11)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelPrincipal)
                 .addContainerGap())
@@ -806,7 +842,9 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1009,11 +1047,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_cbAñosConsulta2ActionPerformed
 
     private void btnProcesarDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboardActionPerformed
+        this.dtoConsulta = new DTOConsulta();
+        this.taLeyenda.setText("");
         TipoVista vista = TipoVista.PROVINCIA;
-        boolean keepZoom = false;
+        boolean keepZoomC = false;
+        boolean keepZoomD = false;
         ArrayList<Marker> marcadores = new ArrayList<>();
         Marker.setCount(0);
-        
         if (this.listCantones.getSelectedIndices().length > 0){
             vista = TipoVista.CANTON;
         }
@@ -1022,7 +1062,11 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (vista == TipoVista.CANTON && this.listProvincias.getSelectedValue().equals("Puntarenas")){
-            keepZoom = true;
+            keepZoomC = true;
+        }
+        
+        if (vista == TipoVista.DISTRITO && this.listProvincias.getSelectedValue().equals("Puntarenas")){
+            keepZoomD = true;
         }
         
         
@@ -1070,20 +1114,36 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         // hacer por cada consulta
+        if (this.listProvincias.getSelectedValuesList().size() == 0){
+            dtoConsulta = controller.consultaDashboard(dtoConsulta);
+                ResultSet rs = dtoConsulta.getRs();
+                int cantidad = 0;
+
+                try {
+                    while(rs.next()){
+                        cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                        marcadores.add(new Marker("9.93638888888889000000","-84.07444444444440000000",cantidad,"Costa Rica"));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+        }
+        
+        
         if (vista == TipoVista.PROVINCIA){
             for (String p:this.listProvincias.getSelectedValuesList()){
                 dtoConsulta.setProvincia(p);
-                
                 dtoConsulta = controller.consultaDashboard(dtoConsulta);
                 ResultSet rs = dtoConsulta.getRs();
 
 
                 try {
                     while(rs.next()){
-                        String lat = rs.getString(5);
-                        String lon = rs.getString(6);
-                        int cantidad = Integer.valueOf(rs.getString(1));
-                        marcadores.add(new Marker(lat,lon,cantidad));
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                        marcadores.add(new Marker(lat,lon,cantidad,p));
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1092,7 +1152,56 @@ public class MainFrame extends javax.swing.JFrame {
             
         }
         
+        if (vista == TipoVista.CANTON){
+            dtoConsulta.setProvincia(this.listProvincias.getSelectedValue());
+            for (String p:this.listCantones.getSelectedValuesList()){
+                dtoConsulta.setCanton(p);
+                dtoConsulta = controller.consultaDashboard(dtoConsulta);
+                ResultSet rs = dtoConsulta.getRs();
+
+
+                try {
+                    while(rs.next()){
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                        marcadores.add(new Marker(lat,lon,cantidad,p));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
         
+        if (vista == TipoVista.DISTRITO){
+            dtoConsulta.setProvincia(this.listProvincias.getSelectedValue());
+            dtoConsulta.setCanton(this.listCantones.getSelectedValue());
+            for (String p:this.listDistritos.getSelectedValuesList()){
+                dtoConsulta.setDistrito(p);
+                dtoConsulta = controller.consultaDashboard(dtoConsulta);
+                ResultSet rs = dtoConsulta.getRs();
+
+
+                try {
+                    while(rs.next()){
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                        marcadores.add(new Marker(lat,lon,cantidad,p));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+        }
+        int sumatotal = 0;
+        for (Marker m:marcadores){
+            sumatotal += m.getCantidad();
+            this.taLeyenda.setText(this.taLeyenda.getText()+m.getLabel()+" - "+m.getNombre()+" - "+m.getCantidad()+"\n");
+        }
+        this.taLeyenda.setText(this.taLeyenda.getText()+"\n\nTotal: "+sumatotal);
         
         //Final de consulta
         
@@ -1106,9 +1215,28 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         
-        descargarMapa(vista,keepZoom,marcadores);
+        descargarMapa(vista,keepZoomC,keepZoomD,marcadores);
         
+        this.lblCargando.setText("Cargado!");
     }//GEN-LAST:event_btnProcesarDashboardActionPerformed
+
+    private void btnProcesarDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnProcesarDashboardMouseClicked
+        
+    }//GEN-LAST:event_btnProcesarDashboardMouseClicked
+
+    private void btnProcesarDashboard1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboard1ActionPerformed
+        descargarMapa(TipoVista.PROVINCIA,false,false,new ArrayList<>());
+        this.listDistritos.clearSelection();
+        this.listCantones.clearSelection();
+        this.listProvincias.clearSelection();
+        this.cbAños.setSelectedIndex(0);
+        this.cbEdadQuinquenal_Dashboard.setSelectedIndex(0);
+        this.cbSexo_Dashboard.setSelectedIndex(0);
+        this.cbTipoAfectado_Dashboard.setSelectedIndex(0);
+        this.cbTipoLesion_Dashboard.setSelectedIndex(0);
+        this.taLeyenda.setText("");
+        this.lblCargando.setText("Limpio !");
+    }//GEN-LAST:event_btnProcesarDashboard1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1176,6 +1304,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1193,7 +1322,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel labelMapa;
+    private javax.swing.JLabel lblCargando;
     private javax.swing.JList<String> listCantones;
     private javax.swing.JList<String> listDistritos;
     private javax.swing.JList<String> listEdadQuinquenal_Grafica;
@@ -1212,5 +1343,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbSexo_Indicador;
     private javax.swing.JRadioButton rbTipoAfectado_Identificador;
     private javax.swing.JRadioButton rbTipoLesion_Indicador;
+    private javax.swing.JTextArea taLeyenda;
     // End of variables declaration//GEN-END:variables
 }
