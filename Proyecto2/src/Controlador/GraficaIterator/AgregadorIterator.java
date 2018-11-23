@@ -13,5 +13,6 @@ public interface AgregadorIterator {
     
     void insertarCantidad(int numero);
     int mostrarInformacion(int indice);
+    AgregadorConcreto getIterador();
     
 }

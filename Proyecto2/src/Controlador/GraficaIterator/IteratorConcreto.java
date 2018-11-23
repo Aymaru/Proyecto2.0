@@ -15,28 +15,37 @@ public class IteratorConcreto implements IteradorHandler{
           
     @Override
     public void first() {
-        Object obj = null;
-        if( this.agregado.aDatos.isEmpty() == false )
-        {
-            this.posicion_actual = 0;
-            obj = this.agregado.aDatos.firstElement();
-        }
-        return obj;
+        
     }
+
+//    @Override
+//    public int current() {
+//        
+//    }
+//
+//    @Override
+//    public int next() {
+//        
+//    }
+//
+//    @Override
+//    public boolean quedanElementos() {
+//        
+//    }
 
     @Override
     public int current() {
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int next() {
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean quedanElementos() {
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

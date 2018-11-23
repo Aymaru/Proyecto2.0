@@ -40,5 +40,12 @@ public class AgregadorConcreto implements AgregadorIterator{
 //            return (Vehiculo)listaCantidadAccidentes[indice];
 //        }
     }
+
+    @Override
+    public AgregadorConcreto getIterador() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }
