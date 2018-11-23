@@ -1,4 +1,9 @@
-package GraficaChainResponsability;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
@@ -14,16 +19,19 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-
-public class HandlerTL implements IHandler{
+/**
+ *
+ * @author Sebastian
+ */
+public class HandlerEQ implements IHandler{
     
     private IHandler nextHandler;
     private DAODB baseDatos;
-
-    public HandlerTL() throws ClassNotFoundException {
+    
+    public HandlerEQ() throws ClassNotFoundException {
         this.baseDatos = new DAODB();
     }
-    
+
     @Override
     public void setNuevoHandler(IHandler handler) {
         nextHandler = handler;
@@ -36,26 +44,14 @@ public class HandlerTL implements IHandler{
 
     @Override
     public DTOConsulta generarChart(DTOConsulta dto) {
-        try {
-            //Setteado de precesores
-            HandlerS hS = new HandlerS();
-            this.setNuevoHandler(hS);
-            HandlerRA hRA = new HandlerRA();
-            hS.setNuevoHandler(hRA);
-            HandlerEQ hEQ = new HandlerEQ();
-            hRA.setNuevoHandler(hEQ);
-            
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (dto.getTipoIdentificador() == TipoIdentificador.TIPO_LESION){
+        if (dto.getTipoIdentificador() == TipoIdentificador.EDAD_QUINQUENAL){
             // Se empieza a generar la grafica
             XYSeriesCollection dataset = new XYSeriesCollection();
             ArrayList<String> fechas = new ArrayList();
             for (String indicador : dto.getIndicadores()){
                 dto.setIdentificador(indicador);
                 baseDatos.consultaGrafica(dto);
-                ResultSet rs = dto.getRs();
+                ResultSet rs = dto.getRs();                
                 try {
                     XYSeries serie = new XYSeries(indicador);
                     int acum = 0;
@@ -66,10 +62,10 @@ public class HandlerTL implements IHandler{
                         serie.add(acum, cantidad);
                         if(!fechas.contains(fecha)){
                             fechas.add(fecha);
-                        }
-                    }
+                        }                        
+                    }                    
                     rs.close();
-                    dataset.addSeries(serie);
+                    dataset.addSeries(serie);                    
                 } catch (SQLException ex) {
                     Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -80,7 +76,7 @@ public class HandlerTL implements IHandler{
             }
             String caso = fch;
             JFreeChart chart = ChartFactory.createXYLineChart(
-                "Tipo de Lesión",
+                "Edad Quiquenal",
                 "Tiempo Fecha(s): " + caso,
                 "Cantidad de Accidentes",
                 dataset,
@@ -94,7 +90,7 @@ public class HandlerTL implements IHandler{
         }else{
             nextHandler.generarChart(dto); // siguiente
         } 
-    return dto;
+        return dto;
     }
+    
 }
-       

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GraficaChainResponsability;
+package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
@@ -24,15 +24,15 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Sebastian
  */
-public class HandlerRA implements IHandler{
+public class HandlerS implements IHandler{
     
     private IHandler nextHandler;
     private DAODB baseDatos;
-    
-    public HandlerRA() throws ClassNotFoundException {
+
+    public HandlerS() throws ClassNotFoundException {
         this.baseDatos = new DAODB();
     }
-
+    
     @Override
     public void setNuevoHandler(IHandler handler) {
         nextHandler = handler;
@@ -45,7 +45,7 @@ public class HandlerRA implements IHandler{
 
     @Override
     public DTOConsulta generarChart(DTOConsulta dto) {
-        if (dto.getTipoIdentificador() == TipoIdentificador.ROL_AFECTADO){
+        if (dto.getTipoIdentificador() == TipoIdentificador.SEXO){
             // Se empieza a generar la grafica
             XYSeriesCollection dataset = new XYSeriesCollection();
             ArrayList<String> fechas = new ArrayList();
@@ -77,7 +77,7 @@ public class HandlerRA implements IHandler{
             }
             String caso = fch;
             JFreeChart chart = ChartFactory.createXYLineChart(
-                "Tipo de Lesionado",
+                "Sexo",
                 "Tiempo Fecha(s): " + caso,
                 "Cantidad de Accidentes",
                 dataset,
@@ -92,6 +92,6 @@ public class HandlerRA implements IHandler{
             nextHandler.generarChart(dto); // siguiente
         } 
         return dto;
+   
     }
-    
 }

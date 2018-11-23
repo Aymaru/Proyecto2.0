@@ -64,7 +64,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
         this.setLocation(0, 0); 
-        descargarMapa(TipoVista.PROVINCIA,false,new ArrayList<>());
         this.rbSexo_Indicador.setSelected(true);
         
         this.controller = new Controlador();

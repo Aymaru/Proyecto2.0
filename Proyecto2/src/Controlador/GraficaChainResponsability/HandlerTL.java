@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GraficaChainResponsability;
+package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
@@ -20,16 +15,12 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 
-/**
- *
- * @author Sebastian
- */
-public class HandlerS implements IHandler{
+public class HandlerTL implements IHandler{
     
     private IHandler nextHandler;
     private DAODB baseDatos;
 
-    public HandlerS() throws ClassNotFoundException {
+    public HandlerTL() throws ClassNotFoundException {
         this.baseDatos = new DAODB();
     }
     
@@ -45,7 +36,19 @@ public class HandlerS implements IHandler{
 
     @Override
     public DTOConsulta generarChart(DTOConsulta dto) {
-        if (dto.getTipoIdentificador() == TipoIdentificador.SEXO){
+        try {
+            //Setteado de precesores
+            HandlerS hS = new HandlerS();
+            this.setNuevoHandler(hS);
+            HandlerRA hRA = new HandlerRA();
+            hS.setNuevoHandler(hRA);
+            HandlerEQ hEQ = new HandlerEQ();
+            hRA.setNuevoHandler(hEQ);
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (dto.getTipoIdentificador() == TipoIdentificador.TIPO_LESION){
             // Se empieza a generar la grafica
             XYSeriesCollection dataset = new XYSeriesCollection();
             ArrayList<String> fechas = new ArrayList();
@@ -77,7 +80,7 @@ public class HandlerS implements IHandler{
             }
             String caso = fch;
             JFreeChart chart = ChartFactory.createXYLineChart(
-                "Sexo",
+                "Tipo de Lesión",
                 "Tiempo Fecha(s): " + caso,
                 "Cantidad de Accidentes",
                 dataset,
@@ -91,7 +94,7 @@ public class HandlerS implements IHandler{
         }else{
             nextHandler.generarChart(dto); // siguiente
         } 
-        return dto;
-   
+    return dto;
     }
 }
+       

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GraficaChainResponsability;
+package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
@@ -19,16 +19,17 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
+
 /**
  *
  * @author Sebastian
  */
-public class HandlerEQ implements IHandler{
+public class HandlerRA implements IHandler{
     
     private IHandler nextHandler;
     private DAODB baseDatos;
     
-    public HandlerEQ() throws ClassNotFoundException {
+    public HandlerRA() throws ClassNotFoundException {
         this.baseDatos = new DAODB();
     }
 
@@ -44,14 +45,14 @@ public class HandlerEQ implements IHandler{
 
     @Override
     public DTOConsulta generarChart(DTOConsulta dto) {
-        if (dto.getTipoIdentificador() == TipoIdentificador.EDAD_QUINQUENAL){
+        if (dto.getTipoIdentificador() == TipoIdentificador.ROL_AFECTADO){
             // Se empieza a generar la grafica
             XYSeriesCollection dataset = new XYSeriesCollection();
             ArrayList<String> fechas = new ArrayList();
             for (String indicador : dto.getIndicadores()){
                 dto.setIdentificador(indicador);
                 baseDatos.consultaGrafica(dto);
-                ResultSet rs = dto.getRs();                
+                ResultSet rs = dto.getRs();
                 try {
                     XYSeries serie = new XYSeries(indicador);
                     int acum = 0;
@@ -62,10 +63,10 @@ public class HandlerEQ implements IHandler{
                         serie.add(acum, cantidad);
                         if(!fechas.contains(fecha)){
                             fechas.add(fecha);
-                        }                        
-                    }                    
+                        }
+                    }
                     rs.close();
-                    dataset.addSeries(serie);                    
+                    dataset.addSeries(serie);
                 } catch (SQLException ex) {
                     Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -76,7 +77,7 @@ public class HandlerEQ implements IHandler{
             }
             String caso = fch;
             JFreeChart chart = ChartFactory.createXYLineChart(
-                "Edad Quiquenal",
+                "Tipo de Lesionado",
                 "Tiempo Fecha(s): " + caso,
                 "Cantidad de Accidentes",
                 dataset,

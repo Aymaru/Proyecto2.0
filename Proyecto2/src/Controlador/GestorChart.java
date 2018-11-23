@@ -5,8 +5,8 @@
  */
 package Controlador;
 
-import GraficaChainResponsability.HandlerTL;
-import GraficaChainResponsability.IHandler;
+import Controlador.GraficaChainResponsability.HandlerTL;
+import Controlador.GraficaChainResponsability.IHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

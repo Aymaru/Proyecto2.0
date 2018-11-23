@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GraficaIterator;
+package Controlador.GraficaIterator;
 
 /**
  *
  * @author Sebastian
  */
-public class IteradorS implements IteradorHandler {
+public class IteradorRA implements IteradorHandler {
 
     @Override
     public void first() {
