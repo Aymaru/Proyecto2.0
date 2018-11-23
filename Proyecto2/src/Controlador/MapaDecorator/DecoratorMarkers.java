@@ -3,48 +3,38 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MapaDecorator;
+package Controlador.MapaDecorator;
 
+import Modelo.Marker;
+import Modelo.TipoVista;
 import java.util.ArrayList;
 
 /**
  *
  * @author juan_
  */
-public class DecoratorZoom extends MapaDecorator{
-
+public class DecoratorMarkers extends MapaDecorator{
     
-    public DecoratorZoom(DataMapa data) {
+    
+    
+
+    public DecoratorMarkers(DataMapa data) {
         super(data);
     }
 
+   
     @Override
     public String getLink() {
-        String Nzoom = "8";
-        if (getData().isKeepZoomC()){
-            Nzoom = "8";
+        String NMarker = "";
+        for (int i=0;i<getData().getMarcadores().size();i++){
+            int color = i % getData().getColores().size();
+            NMarker += "&markers=color:"+getData().getColores().get(color)+"%7Clabel:"+getData().getMarcadores().get(i).getLabel()+"%7C"+getData().getMarcadores().get(i).getDir();
         }
-        else if (getData().isKeepZoomD()){
-            Nzoom = "10";
-        }
-        else{
-            if (getData().getMarcadores().size() > 0){
-            if (TipoVista.PROVINCIA == getData().getVista()){
-                Nzoom = "8";
-            }
-            else if (TipoVista.CANTON == getData().getVista()){
-                Nzoom = "9";
-                
-            }
-            else if (TipoVista.DISTRITO == getData().getVista()){
-                Nzoom = "11";
-            }
-            
-            }
-        }
-        return getData().getLink().substring(0,getData().getLink().indexOf("&zoom=")+6)+Nzoom+getData().getLink().substring(getData().getLink().indexOf("&size"));
+        return getData().getLink().substring(0,getData().getLink().indexOf("&key"))+NMarker+getData().getLink().substring(getData().getLink().indexOf("&key"));
+    
     }
 
+    
     @Override
     protected TipoVista getVista() {
         return getData().getVista();
@@ -60,7 +50,10 @@ public class DecoratorZoom extends MapaDecorator{
         return getData().getEndLink();
     }
 
-   @Override
+    
+
+
+    @Override
     protected boolean isKeepZoomD() {
         return getData().isKeepZoomD();
     }
@@ -100,5 +93,6 @@ public class DecoratorZoom extends MapaDecorator{
     protected String getCenter() {
         return getData().getCenter();
     }
-
+    
+    
 }

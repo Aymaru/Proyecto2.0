@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MapaDecorator;
+package Controlador.MapaDecorator;
 
+import Modelo.Marker;
+import Modelo.TipoVista;
 import java.util.ArrayList;
 
 /**

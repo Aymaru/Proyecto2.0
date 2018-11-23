@@ -5,6 +5,11 @@
  */
 package Controlador;
 
+import Controlador.MapaDecorator.DataMapa;
+import Modelo.Marker;
+import Modelo.TipoVista;
+import java.util.ArrayList;
+
 /**
  *
  * @author ayma-93
@@ -13,11 +18,21 @@ public class Controlador {
     DTOInterfaz dtoInterfaz;
     DTOConsulta dtoConsulta;
     DAODB dao;
+    GestorChart gestorGrafico;
+    GestorDashboard gestorDashboard;
     public Controlador() throws ClassNotFoundException {
         this.dao = new DAODB();
         this.dtoInterfaz = new DTOInterfaz();
         this.dtoConsulta = new DTOConsulta();
+        this.gestorGrafico = new GestorChart();
+        this.gestorDashboard = new GestorDashboard();
+        
     }
+    
+    public DTOInterfaz getMapa(DTOInterfaz dto){
+        return gestorDashboard.GetMapa(dto);
+    }
+    
     
     //Consultas
     
@@ -27,7 +42,6 @@ public class Controlador {
     }
     
     public DTOConsulta getGrafica(DTOConsulta dto){
-        GestorChart gestorGrafico = new GestorChart();
         return gestorGrafico.generarGrafica(dto);
     }       
     

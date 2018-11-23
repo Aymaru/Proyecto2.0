@@ -6,16 +6,16 @@
 package Vista;
 
 import Controlador.Controlador;
-import MapaDecorator.TipoVista;
-import MapaDecorator.Marker;
+import Modelo.TipoVista;
+import Modelo.Marker;
 import Controlador.DTOConsulta;
 import Controlador.DTOInterfaz;
 import Controlador.TipoIdentificador;
-import MapaDecorator.DataMapa;
-import MapaDecorator.DecoratorCenter;
-import MapaDecorator.Mapa;
-import MapaDecorator.DecoratorMarkers;
-import MapaDecorator.DecoratorZoom;
+import Controlador.MapaDecorator.DataMapa;
+import Controlador.MapaDecorator.DecoratorCenter;
+import Controlador.MapaDecorator.Mapa;
+import Controlador.MapaDecorator.DecoratorMarkers;
+import Controlador.MapaDecorator.DecoratorZoom;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -64,7 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
         this.setLocation(40, 40); 
-        descargarMapa(TipoVista.PROVINCIA,false,false,new ArrayList<>());
+        
         this.rbSexo_Indicador.setSelected(true);
         
         this.controller = new Controlador();
@@ -72,6 +72,8 @@ public class MainFrame extends javax.swing.JFrame {
         this.dtoInterfaz_Salida = new DTOInterfaz();
         this.dtoConsulta = new DTOConsulta();
         
+        
+        descargarMapa(TipoVista.PROVINCIA,false,false,new ArrayList<>());
         inicializarDatos();
         
         
@@ -143,15 +145,16 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void descargarMapa(TipoVista vista,boolean keepZoomC,boolean keepZoomD,ArrayList<Marker> marcadores){
         
-        DataMapa MapaConsulta1 = new Mapa(vista,keepZoomC,keepZoomD,marcadores);
-        MapaConsulta1 = new DecoratorMarkers(MapaConsulta1);
-        MapaConsulta1 = new DecoratorCenter(MapaConsulta1);
-        MapaConsulta1 = new DecoratorZoom(MapaConsulta1);
+        this.dtoInterfaz_Salida.setVista(vista);
+        this.dtoInterfaz_Salida.setKeepZoomC(keepZoomC);
+        this.dtoInterfaz_Salida.setKeepZoomD(keepZoomD);
+        this.dtoInterfaz_Salida.setMarcadores(marcadores);
+        dtoInterfaz_Entrada = controller.getMapa(dtoInterfaz_Salida);
         
         
         
         try {
-        URL url = new URL(MapaConsulta1.getLink());
+        URL url = new URL(dtoInterfaz_Entrada.getMapa().getLink());
         HttpURLConnection httpcon = (HttpURLConnection) url.openConnection(); 
         httpcon.addRequestProperty("User-Agent", ""); 
         BufferedImage image = ImageIO.read(httpcon.getInputStream());
@@ -1001,6 +1004,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnProcesarDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcesarDashboardActionPerformed
         this.dtoConsulta = new DTOConsulta();
+        this.taLeyenda.setText("");
         TipoVista vista = TipoVista.PROVINCIA;
         boolean keepZoomC = false;
         boolean keepZoomD = false;

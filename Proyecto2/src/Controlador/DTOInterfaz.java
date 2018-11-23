@@ -5,7 +5,11 @@
  */
 package Controlador;
 
+import Controlador.MapaDecorator.DataMapa;
+import Modelo.Marker;
+import Modelo.TipoVista;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,14 +17,23 @@ import java.sql.ResultSet;
  */
 public class DTOInterfaz {
     
-    ResultSet rs;
-    String provincia;
-    String canton;
+    private ResultSet rs;
+    private String provincia;
+    private String canton;
+    private boolean keepZoomC;
+    private boolean keepZoomD;
+    private TipoVista vista;
+    private ArrayList<Marker> marcadores;
+    private DataMapa mapa;
 
     public void DTOInterfaz() {
         this.rs = null;
         this.provincia = "";
         this.canton = "";
+        this.keepZoomC = false;
+        this.keepZoomD = false;
+        this.vista = TipoVista.PROVINCIA;
+        this.marcadores = new ArrayList<>();
     }
 
     public ResultSet getRs() {
@@ -46,6 +59,49 @@ public class DTOInterfaz {
     public void setCanton(String canton) {
         this.canton = canton;
     }
+
+    public boolean isKeepZoomC() {
+        return keepZoomC;
+    }
+
+    public void setKeepZoomC(boolean keepZoomC) {
+        this.keepZoomC = keepZoomC;
+    }
+
+    public boolean isKeepZoomD() {
+        return keepZoomD;
+    }
+
+    public void setKeepZoomD(boolean keepZoomD) {
+        this.keepZoomD = keepZoomD;
+    }
+
+    public TipoVista getVista() {
+        return vista;
+    }
+
+    public void setVista(TipoVista vista) {
+        this.vista = vista;
+    }
+
+    public ArrayList<Marker> getMarcadores() {
+        return marcadores;
+    }
+
+    public void setMarcadores(ArrayList<Marker> marcadores) {
+        this.marcadores = marcadores;
+    }
+
+    public DataMapa getMapa() {
+        return mapa;
+    }
+
+    public void setMapa(DataMapa mapa) {
+        this.mapa = mapa;
+    }
+    
+    
+    
     
     
 }
