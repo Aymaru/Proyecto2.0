@@ -12,7 +12,6 @@ package Controlador.GraficaIterator;
 public interface AgregadorIterator {
     
     void insertarCantidad(int numero);
-    int mostrarInformacion(int indice);
-    AgregadorConcreto getIterador();
+    IteradorHandler getIterador();
     
 }

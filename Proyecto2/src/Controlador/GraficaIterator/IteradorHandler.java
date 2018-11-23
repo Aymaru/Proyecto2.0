@@ -10,8 +10,8 @@ package Controlador.GraficaIterator;
  * @author Sebastian
  */
 public interface IteradorHandler {
-    void first();
-    int current();
-    int next();
-    boolean quedanElementos();
+    
+    public boolean hasNext();
+    public int next();
+    
 }

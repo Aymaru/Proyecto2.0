@@ -2,6 +2,8 @@ package Controlador.GraficaChainResponsability;
 
 import Controlador.DAODB;
 import Controlador.DTOConsulta;
+import Controlador.GraficaIterator.AgregadorConcreto;
+import Controlador.GraficaIterator.IteradorHandler;
 import Modelo.TipoIdentificador;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -48,6 +50,10 @@ public class HandlerTL implements IHandler{
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(HandlerTL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // Crear el objeto agregado que contiene la lista (un vector en este ejemplo)
+        AgregadorConcreto agregado = new AgregadorConcreto();
+        // Crear el objeto iterador para recorrer la lista
+        IteradorHandler iterador = agregado.getIterador();
         if (dto.getTipoIdentificador() == TipoIdentificador.TIPO_LESION){
             // Se empieza a generar la grafica
             XYSeriesCollection dataset = new XYSeriesCollection();
@@ -63,10 +69,17 @@ public class HandlerTL implements IHandler{
                         int cantidad = rs.getInt("Cantidad");
                         String fecha = rs.getString("Anno");
                         acum++;                                
-                        serie.add(acum, cantidad);
+                        //serie.add(acum, cantidad);
+                        agregado.insertarCantidad(cantidad); // Llena el iterador
                         if(!fechas.contains(fecha)){
                             fechas.add(fecha);
                         }
+                    }
+                    acum = 0;
+                    while(iterador.hasNext()){
+                        int numActual = iterador.next();
+                        acum++;
+                        serie.add(acum, numActual);
                     }
                     rs.close();
                     dataset.addSeries(serie);
