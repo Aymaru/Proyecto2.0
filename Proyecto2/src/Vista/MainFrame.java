@@ -301,6 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Canton(es)");
 
         listProvincias.setBackground(new java.awt.Color(102, 102, 102));
+        listProvincias.setForeground(new java.awt.Color(255, 255, 255));
         listProvincias.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
@@ -338,6 +339,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setText("Provincia(s)");
 
         listCantones.setBackground(new java.awt.Color(102, 102, 102));
+        listCantones.setForeground(new java.awt.Color(255, 255, 255));
         listCantones.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
@@ -351,6 +353,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listCantones);
 
         listDistritos.setBackground(new java.awt.Color(102, 102, 102));
+        listDistritos.setForeground(new java.awt.Color(255, 255, 255));
         listDistritos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7" };
             public int getSize() { return strings.length; }
@@ -420,7 +423,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel15.setText("LEYENDA");
 
         taLeyenda.setEditable(false);
+        taLeyenda.setBackground(new java.awt.Color(102, 102, 102));
         taLeyenda.setColumns(20);
+        taLeyenda.setForeground(new java.awt.Color(255, 255, 255));
         taLeyenda.setRows(5);
         jScrollPane8.setViewportView(taLeyenda);
 
@@ -811,7 +816,10 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         taEstadisticasLibre.setEditable(false);
+        taEstadisticasLibre.setBackground(new java.awt.Color(102, 102, 102));
         taEstadisticasLibre.setColumns(20);
+        taEstadisticasLibre.setFont(new java.awt.Font("Monospaced", 1, 22)); // NOI18N
+        taEstadisticasLibre.setForeground(new java.awt.Color(255, 255, 255));
         taEstadisticasLibre.setLineWrap(true);
         taEstadisticasLibre.setRows(5);
         jScrollPane9.setViewportView(taEstadisticasLibre);
@@ -1398,7 +1406,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1417,7 +1425,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_panelLibreMouseMoved
 
     private void lblMapaProvinciasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMapaProvinciasMouseMoved
-        this.taEstadisticasLibre.setText("Coloquese encima del LABEL correspondiente a alguna provincia para ver sus estadisticas para los tipos de lesion\nLos labels estan ubicados debajo del mapa.");
+        this.taEstadisticasLibre.setText("Coloquese encima de\nuna de las ETIQUETAS\ncon los nombres de\nprovincias para ver \nlas estadisticas\ncorrespondientes por\nTipo de lesion");
     }//GEN-LAST:event_lblMapaProvinciasMouseMoved
 
     private void lblCartagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCartagoMouseMoved
@@ -1437,7 +1445,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1468,7 +1476,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1499,7 +1507,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1530,7 +1538,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1561,7 +1569,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
@@ -1593,7 +1601,7 @@ public class MainFrame extends javax.swing.JFrame {
         dtoConsulta = controller.consultaLibre(dtoConsulta);
         int sumatotal = 0;
         ResultSet rs = dtoConsulta.getRs();
-        this.taEstadisticasLibre.setText("Estadisticas de "+provincia+" para "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
+        this.taEstadisticasLibre.setText("Estadisticas de\n"+provincia+"\npara "+dtoConsulta.getAño_ini()+"-"+dtoConsulta.getAño_fin()+"\n\n");
         try {
             while(rs.next()){
                 String desc = rs.getString("Lesion");
