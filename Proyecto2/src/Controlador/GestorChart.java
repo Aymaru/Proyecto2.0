@@ -7,7 +7,6 @@ package Controlador;
 
 import GraficaChainResponsability.HandlerTL;
 import GraficaChainResponsability.IHandler;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

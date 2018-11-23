@@ -63,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() throws SQLException, ClassNotFoundException {
         initComponents();
-        this.setLocation(40, 40); 
+        this.setLocation(0, 0); 
         descargarMapa(TipoVista.PROVINCIA,false,new ArrayList<>());
         this.rbSexo_Indicador.setSelected(true);
         
@@ -912,6 +912,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnGenerarGrafica1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarGrafica1ActionPerformed
         //Set de rango anos
+        
         String anos = (String)cbAñosConsulta2.getSelectedItem();
         if(anos.contains("-")){
             String[] anosSeparados = anos.split("-");
@@ -922,42 +923,85 @@ public class MainFrame extends javax.swing.JFrame {
             dtoConsulta.setAño_fin(anos);
         }
         
+        dtoInterfaz_Entrada = controller.getDao().getTiposLesion(dtoInterfaz_Salida);
+        ResultSet rs = dtoInterfaz_Entrada.getRs();
         //Set info de los indicadores
         ArrayList info = new ArrayList();
         if (rbSexo_Indicador.isSelected()){
             dtoConsulta.setTipoIdentificador(TipoIdentificador.SEXO);
-            for(Object dato : listSexo_Grafica.getSelectedValues()){
-                info.add((String)dato);
+            if (listSexo_Grafica.isSelectionEmpty()){
+                info.add("Hombre");
+                info.add("Mujer");
+                info.add("Desconocido");
+            }else{
+                for(Object dato : listSexo_Grafica.getSelectedValues()){
+                    info.add((String)dato);
+                }
             }
         }
         
         if (rbEdadQuinquenal_Indicador.isSelected()){
             dtoConsulta.setTipoIdentificador(TipoIdentificador.EDAD_QUINQUENAL);
-            for(Object dato : listEdadQuinquenal_Grafica.getSelectedValues()){
-                info.add((String)dato);
+            if (listEdadQuinquenal_Grafica.isSelectionEmpty()){
+                try {
+                    while(rs.next()){
+                        String dato = rs.getString("EdadQuinquenal");
+                        info.add(dato);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                for(Object dato : listEdadQuinquenal_Grafica.getSelectedValues()){
+                    info.add((String)dato);
+                }
             }
+            
         }
         
-        if (rbTipoAfectado_Identificador.isSelected()){
-            dtoConsulta.setTipoIdentificador(TipoIdentificador.ROL_AFECTADO);
-            for(Object dato : listRolAfectado_Grafica.getSelectedValues()){
-                info.add((String)dato);
-            }
-        }
         if (rbTipoLesion_Indicador.isSelected()){
             dtoConsulta.setTipoIdentificador(TipoIdentificador.TIPO_LESION);
-            for(Object dato : listTipoLesion_Grafica.getSelectedValues()){
-                info.add((String)dato);
+            if (listTipoLesion_Grafica.isSelectionEmpty()){
+                try {
+                    while(rs.next()){
+                        String dato = rs.getString("TipoLesion");
+                        info.add(dato);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                for(Object dato : listTipoLesion_Grafica.getSelectedValues()){
+                    info.add((String)dato);
+                }
+            }
+        }
+        if (rbTipoAfectado_Identificador.isSelected()){
+            dtoConsulta.setTipoIdentificador(TipoIdentificador.ROL_AFECTADO);
+            if (listRolAfectado_Grafica.isSelectionEmpty()){
+                try {
+                    while(rs.next()){
+                        String dato = rs.getString("RolAfectado");
+                        info.add(dato);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                for(Object dato : listRolAfectado_Grafica.getSelectedValues()){
+                    info.add((String)dato);
+                }
             }
         }
         dtoConsulta.setIndicadores(info);
         
         JFreeChart chart = controller.getGrafica(dtoConsulta).getGrafica();
         // Mostramos la grafica dentro del jPanel1
-        ChartPanel panel = new ChartPanel(chart);        
+        ChartPanel panel = new ChartPanel(chart);  
+        panelGrafico.removeAll();
         panelGrafico.setLayout(new java.awt.GridLayout());
         panelGrafico.add(panel);   
-        panelGrafico.validate();        
+        panelGrafico.validate();
     }//GEN-LAST:event_btnGenerarGrafica1ActionPerformed
 
     private void cbAñosConsulta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAñosConsulta2ActionPerformed
