@@ -1077,11 +1077,8 @@ public class MainFrame extends javax.swing.JFrame {
 
                 try {
                     while(rs.next()){
-                        cantidad = Integer.valueOf(rs.getString(1));
-                        String lat = rs.getString(5);
-                        String lon = rs.getString(6);
-                        System.out.println(cantidad);
-                        marcadores.add(new Marker(lat,lon,cantidad,"Costa Rica"));
+                        cantidad = Integer.valueOf(rs.getString("Cantidad"));
+                        marcadores.add(new Marker("9.93638888888889000000","-84.07444444444440000000",cantidad,"Costa Rica"));
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1099,9 +1096,9 @@ public class MainFrame extends javax.swing.JFrame {
 
                 try {
                     while(rs.next()){
-                        String lat = rs.getString(5);
-                        String lon = rs.getString(6);
-                        int cantidad = Integer.valueOf(rs.getString(1));
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
                         marcadores.add(new Marker(lat,lon,cantidad,p));
                     }
                 } catch (SQLException ex) {
@@ -1121,9 +1118,9 @@ public class MainFrame extends javax.swing.JFrame {
 
                 try {
                     while(rs.next()){
-                        String lat = rs.getString(5);
-                        String lon = rs.getString(6);
-                        int cantidad = Integer.valueOf(rs.getString(1));
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
                         marcadores.add(new Marker(lat,lon,cantidad,p));
                     }
                 } catch (SQLException ex) {
@@ -1144,9 +1141,9 @@ public class MainFrame extends javax.swing.JFrame {
 
                 try {
                     while(rs.next()){
-                        String lat = rs.getString(5);
-                        String lon = rs.getString(6);
-                        int cantidad = Integer.valueOf(rs.getString(1));
+                        String lat = rs.getString("Latitud");
+                        String lon = rs.getString("Longitud");
+                        int cantidad = Integer.valueOf(rs.getString("Cantidad"));
                         marcadores.add(new Marker(lat,lon,cantidad,p));
                     }
                 } catch (SQLException ex) {
