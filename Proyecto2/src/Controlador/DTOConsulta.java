@@ -18,21 +18,21 @@ import org.jfree.chart.JFreeChart;
 public class DTOConsulta {
     
     //Variables
-    TipoVista tipoVista;
-    TipoIdentificador tipoIdentificador;
-    ResultSet rs;
-    String año_ini;
-    String año_fin;
-    String identificador;
-    String provincia;
-    String canton;
-    String distrito;
-    String tipo_lesion;
-    String rol_afectado;
-    String sexo;
-    String edad_quinquenal;
-    ArrayList<String> indicadores;
-    JFreeChart grafica;
+    private TipoVista tipoVista;
+    private TipoIdentificador tipoIdentificador;
+    private ResultSet rs;
+    private String año_ini;
+    private String año_fin;
+    private String identificador;
+    private String provincia;
+    private String canton;
+    private String distrito;
+    private String tipo_lesion;
+    private String rol_afectado;
+    private String sexo;
+    private String edad_quinquenal;
+    private ArrayList<String> indicadores;
+    private JFreeChart grafica;
 
     //Constructor
     public DTOConsulta() {

@@ -15,11 +15,11 @@ import java.util.ArrayList;
  * @author ayma-93
  */
 public class Controlador {
-    DTOInterfaz dtoInterfaz;
-    DTOConsulta dtoConsulta;
-    DAODB dao;
-    GestorChart gestorGrafico;
-    GestorDashboard gestorDashboard;
+    private DTOInterfaz dtoInterfaz;
+    private DTOConsulta dtoConsulta;
+    private DAODB dao;
+    private GestorChart gestorGrafico;
+    private GestorDashboard gestorDashboard;
     public Controlador() throws ClassNotFoundException {
         this.dao = new DAODB();
         this.dtoInterfaz = new DTOInterfaz();

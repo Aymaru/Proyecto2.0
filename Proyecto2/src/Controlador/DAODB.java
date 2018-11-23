@@ -20,8 +20,8 @@ import java.util.logging.Logger;
  */
 public class DAODB {
      
-    ResultSet rs = null;
-    Connection conn = null;
+    private ResultSet rs = null;
+    private Connection conn = null;
 
     public DAODB() throws ClassNotFoundException {
         try {
