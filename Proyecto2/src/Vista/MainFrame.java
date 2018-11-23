@@ -270,6 +270,8 @@ public class MainFrame extends javax.swing.JFrame {
         lblGuanacaste = new javax.swing.JLabel();
         lblPuntarenas = new javax.swing.JLabel();
         lblLimon = new javax.swing.JLabel();
+        cbAñosLibre = new javax.swing.JComboBox<String>();
+        jLabel16 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -778,9 +780,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelIndicadorLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(panelIndicadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(492, Short.MAX_VALUE))
+                    .addComponent(panelBotones_Indicador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelIndicadorLayout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(panelGrafico, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         panelPrincipal.addTab("Indicador de Comportamiento", panelIndicador);
@@ -875,35 +879,43 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        cbAñosLibre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2012", "2013", "2014", "2012 - 2013", "2012 - 2014", "2013 - 2014" }));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Año(s)");
+
         javax.swing.GroupLayout panelLibreLayout = new javax.swing.GroupLayout(panelLibre);
         panelLibre.setLayout(panelLibreLayout);
         panelLibreLayout.setHorizontalGroup(
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLibreLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(lblAlajuela)
+                .addGap(18, 18, 18)
+                .addComponent(lblCartago)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblHeredia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblSanJose)
+                .addGap(18, 18, 18)
+                .addComponent(lblGuanacaste)
+                .addGap(30, 30, 30)
+                .addComponent(lblLimon)
+                .addGap(18, 18, 18)
+                .addComponent(lblPuntarenas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelLibreLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblAlajuela)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblCartago)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblHeredia)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblSanJose)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblGuanacaste)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblLimon)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblPuntarenas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE))
-                    .addGroup(panelLibreLayout.createSequentialGroup()
-                        .addComponent(lblMapaProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)))
-                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane9)
-                    .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                    .addComponent(btnProcesarDashboard4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
+            .addGroup(panelLibreLayout.createSequentialGroup()
+                .addComponent(lblMapaProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbAñosLibre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addGap(156, 156, 156))
         );
 
         panelLibreLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAlajuela, lblCartago, lblGuanacaste, lblHeredia, lblLimon, lblPuntarenas, lblSanJose});
@@ -912,23 +924,25 @@ public class MainFrame extends javax.swing.JFrame {
             panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLibreLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane9)
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelLibreLayout.createSequentialGroup()
-                        .addComponent(lblMapaProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel16)
                         .addGap(18, 18, 18)
-                        .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAlajuela)
-                            .addComponent(lblCartago)
-                            .addComponent(lblHeredia)
-                            .addComponent(lblSanJose)
-                            .addComponent(lblGuanacaste)
-                            .addComponent(lblPuntarenas)
-                            .addComponent(lblLimon))
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addComponent(cbAñosLibre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane9))
+                    .addComponent(lblMapaProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnProcesarDashboard4)
-                .addGap(427, 427, 427))
+                .addGroup(panelLibreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAlajuela)
+                    .addComponent(lblCartago)
+                    .addComponent(lblHeredia)
+                    .addComponent(lblSanJose)
+                    .addComponent(lblGuanacaste)
+                    .addComponent(lblPuntarenas)
+                    .addComponent(lblLimon)
+                    .addComponent(btnProcesarDashboard4))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
 
         panelLibreLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAlajuela, lblCartago, lblGuanacaste, lblHeredia, lblLimon, lblPuntarenas, lblSanJose});
@@ -1363,6 +1377,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProcesarDashboard1ActionPerformed
 
     private void lblAlajuelaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAlajuelaMouseMoved
+        String provincia = "Alajuela";
+        
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
+        
         this.taEstadisticasLibre.setText("Alajuela");
     }//GEN-LAST:event_lblAlajuelaMouseMoved
 
@@ -1375,26 +1402,94 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblMapaProvinciasMouseMoved
 
     private void lblCartagoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCartagoMouseMoved
+        
+        String provincia = "Cartago";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
+        
         this.taEstadisticasLibre.setText("Cartago");
     }//GEN-LAST:event_lblCartagoMouseMoved
 
     private void lblHerediaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHerediaMouseMoved
+        
+        String provincia = "Heredia";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
         this.taEstadisticasLibre.setText("Heredia");
     }//GEN-LAST:event_lblHerediaMouseMoved
 
     private void lblSanJoseMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanJoseMouseMoved
+        String provincia = "San José";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
         this.taEstadisticasLibre.setText("San José");
     }//GEN-LAST:event_lblSanJoseMouseMoved
 
     private void lblGuanacasteMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblGuanacasteMouseMoved
+        String provincia = "Guanacaste";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
         this.taEstadisticasLibre.setText("Guanacaste");
     }//GEN-LAST:event_lblGuanacasteMouseMoved
 
     private void lblLimonMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLimonMouseMoved
+        String provincia = "Limón";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
+        
         this.taEstadisticasLibre.setText("Limón");
     }//GEN-LAST:event_lblLimonMouseMoved
 
     private void lblPuntarenasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPuntarenasMouseMoved
+        String provincia = "Puntarenas";
+        String anos = (String)cbAñosLibre.getSelectedItem();
+        if(anos.contains("-")){
+            String[] anosSeparados = anos.split("-");
+            dtoConsulta.setAño_ini(anosSeparados[0].replace(" ", ""));
+            dtoConsulta.setAño_fin(anosSeparados[1].replace(" ", ""));
+        }else{
+            dtoConsulta.setAño_ini(anos);
+            dtoConsulta.setAño_fin(anos);
+        }
         this.taEstadisticasLibre.setText("Puntarenas");
     }//GEN-LAST:event_lblPuntarenasMouseMoved
 
@@ -1453,6 +1548,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JComboBox<String> cbAños;
     private javax.swing.JComboBox<String> cbAñosConsulta2;
+    private javax.swing.JComboBox<String> cbAñosLibre;
     private javax.swing.JComboBox<String> cbEdadQuinquenal_Dashboard;
     private javax.swing.JComboBox<String> cbSexo_Dashboard;
     private javax.swing.JComboBox<String> cbTipoAfectado_Dashboard;
@@ -1464,6 +1560,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

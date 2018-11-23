@@ -727,10 +727,13 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="panelGrafico" min="-2" pref="583" max="-2" attributes="0"/>
                               <Component id="panelBotones_Indicador" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                                  <Component id="panelGrafico" min="-2" pref="583" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="492" max="32767" attributes="0"/>
+                          <EmptySpace pref="451" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1115,34 +1118,35 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="lblAlajuela" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblCartago" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblHeredia" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="lblSanJose" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblGuanacaste" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="lblLimon" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="lblPuntarenas" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="68" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="lblAlajuela" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblCartago" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="lblHeredia" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="lblSanJose" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblGuanacaste" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="lblLimon" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="lblPuntarenas" linkSize="2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="78" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="lblMapaProvincias" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane9" max="32767" attributes="0"/>
-                              <Component id="btnProcesarDashboard4" pref="240" max="32767" attributes="0"/>
+                              <Component id="btnProcesarDashboard4" alignment="1" min="-2" pref="240" max="-2" attributes="0"/>
+                              <Component id="jScrollPane9" alignment="1" min="-2" pref="250" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lblMapaProvincias" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cbAñosLibre" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1150,26 +1154,28 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane9" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="lblMapaProvincias" min="-2" pref="621" max="-2" attributes="0"/>
+                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="lblAlajuela" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblCartago" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblHeredia" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblSanJose" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblGuanacaste" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblPuntarenas" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="lblLimon" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
+                                  <Component id="cbAñosLibre" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane9" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="lblMapaProvincias" min="-2" pref="621" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnProcesarDashboard4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="427" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblAlajuela" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCartago" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblHeredia" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSanJose" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblGuanacaste" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPuntarenas" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblLimon" linkSize="1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnProcesarDashboard4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="500" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1305,6 +1311,34 @@
                   <Events>
                     <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="lblLimonMouseMoved"/>
                   </Events>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbA&#xf1;osLibre">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="6">
+                        <StringItem index="0" value="2012"/>
+                        <StringItem index="1" value="2013"/>
+                        <StringItem index="2" value="2014"/>
+                        <StringItem index="3" value="2012 - 2013"/>
+                        <StringItem index="4" value="2012 - 2014"/>
+                        <StringItem index="5" value="2013 - 2014"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel16">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Tahoma" size="14" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="A&#xf1;o(s)"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
