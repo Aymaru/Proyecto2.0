@@ -42,18 +42,18 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      * @throws java.sql.SQLException
      */
-    Controlador controller;
-    DTOInterfaz dtoInterfaz_Entrada;
-    DTOInterfaz dtoInterfaz_Salida;
-    DTOConsulta dtoConsulta;
+    private Controlador controller;
+    private DTOInterfaz dtoInterfaz_Entrada;
+    private DTOInterfaz dtoInterfaz_Salida;
+    private DTOConsulta dtoConsulta;
     
     //Definir modelo de datos para las listas de la interfaz
-    DefaultListModel modProvincia;
-    DefaultListModel modCanton;
-    DefaultListModel modDistrito;
-    DefaultListModel modTipoLesion;
-    DefaultListModel modRolAfectado;
-    DefaultListModel modEdadQuinquenal;
+    private DefaultListModel modProvincia;
+    private DefaultListModel modCanton;
+    private DefaultListModel modDistrito;
+    private DefaultListModel modTipoLesion;
+    private DefaultListModel modRolAfectado;
+    private DefaultListModel modEdadQuinquenal;
     
     
     public MainFrame() throws SQLException, ClassNotFoundException {
